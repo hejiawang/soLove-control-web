@@ -103,12 +103,9 @@ public class LoginController extends BaseController {
 			
 			//把用户信息加载到session中
 			SessionUtil.writeUserToSession(request, userInfo);
-			//加载用户权限
-			//loadStationInfoToFrontUser(request, frontUser);
-			//记录登录日志
-			//writeLoginInfo(frontUser);
-			//删除密码错误此时
-			//deleteErrorCount(sessionId);
+
+			session.setAttribute("defaultApp", 5);
+			session.setAttribute("userName", userInfo.getUserName());
 			
 			map.put("state", "ok");
 			map.put("info", "正常登陆");

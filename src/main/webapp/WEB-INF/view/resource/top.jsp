@@ -30,13 +30,13 @@
 		</div>
 
 		<div class="navbar-buttons navbar-header pull-right" role="navigation" id="top_App_Info_div">
-			<!-- ul class="nav ace-nav">
+			<ul class="nav ace-nav">
 				<li class="light-blue">
 					<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 						<img class="nav-user-photo" src="resources/avatars/user.jpg" alt="Jason's Photo" />
 						<span class="user-info" style="font-family: 微软雅黑">
 							<small>欢迎您,</small>
-							<small id="user_user_name">sdf</small>
+							<small id="user_user_name"><%=session.getAttribute("userName") %></small>
 						</span>
 	
 						<i class="ace-icon fa fa-caret-down"></i>
@@ -53,7 +53,7 @@
 						</li>
 					</ul>
 				</li>
-			</ul--> 
+			</ul> 
 		</div>
 	</div><!-- /.navbar-container -->
 </div>
@@ -63,36 +63,6 @@
 	permission.domainUrl = {
 		baseDomain : '<%=DomainUrlUtil.BASEURL_DOMAIN%>',
 		imageDomain : '<%=DomainUrlUtil.IMG_BASEURL_DOMAIN%>',
-	}
-	
-	$(function(){
-		
-		//初始化头部app信息
-		//var appID_top = UrlParm.parm("param_app_id");
-		$.ajax({
-			url : permission.domainUrl.baseDomain + "/permission/core/initApp",
-			data : {},
-			type: "get",
-			dataType : 'json',
-			success:function(result) {
-				$("#top_App_Info_div").html(result.result);
-			}
-		});
-	});
-	
-	function changeApp(appID){
-		$.ajax({
-			url : permission.domainUrl.baseDomain + "/permission/core/changeApp",
-			data : {"appID" : appID},
-			type: "get",
-			dataType : 'json',
-			success:function(result) {
-				if(result.success){
-					//window.location.href = 	permission.domainUrl.baseDomain + "/pageGoto" + result.result.url;
-					window.location.href = 	permission.domainUrl.baseDomain + "/pageGoto/index";
-				}
-			}
-		});
 	}
 	
 	// 百度统计

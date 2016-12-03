@@ -7,9 +7,9 @@
 <html lang="zh">
 <head>
 	<base href="<%=basePath%>">
- 	<title>权限管理系统</title>
-	<meta name="keywords" content="权限管理" />
-  	<meta name="description" content="权限管理" />
+ 	<title>SoLove后台管理系统</title>
+	<meta name="keywords" content="SoLove后台管理系统" />
+  	<meta name="description" content="SoLove后台管理系统" />
 	<%@include file="resource/resource.jsp"%>
 	<style type="text/css">
              .dataTables_length {
