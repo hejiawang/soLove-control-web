@@ -46,7 +46,7 @@
 <div class="center">
     <h2>
 		<i class="icon-leaf green"></i>
-		<span class="red">后台管理系统</span>
+		<span class="red">SoLove后台管理系统</span>
 	</h2>
 </div>
 

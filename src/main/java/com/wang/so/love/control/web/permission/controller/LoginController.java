@@ -104,7 +104,7 @@ public class LoginController extends BaseController {
 			//把用户信息加载到session中
 			SessionUtil.writeUserToSession(request, userInfo);
 
-			session.setAttribute("defaultApp", 5);
+			session.setAttribute("defaultApp", 4);
 			session.setAttribute("userName", userInfo.getUserName());
 			
 			map.put("state", "ok");
