@@ -13,6 +13,12 @@
         <dependent-module archiveName="service-imp-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/service-imp/service-imp">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="soLove-service-service-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/soLove-service-service/soLove-service-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="soLove-service-imp-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/soLove-service-imp/soLove-service-imp">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/soLove-control-web/target/classes"/>
         <property name="context-root" value="ROOT"/>
     </wb-module>
