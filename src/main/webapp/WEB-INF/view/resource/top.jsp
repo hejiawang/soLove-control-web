@@ -59,8 +59,8 @@
 </div>
 
 <script type="text/javascript">
-	var permission = permission || {};
-	permission.domainUrl = {
+	var soLove = soLove || {};
+	soLove.domainUrl = {
 		baseDomain : '<%=DomainUrlUtil.BASEURL_DOMAIN%>',
 		imageDomain : '<%=DomainUrlUtil.IMG_BASEURL_DOMAIN%>',
 	}
