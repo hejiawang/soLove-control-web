@@ -147,6 +147,7 @@
 						<li style="text-align: center"><a href="#matePage" data-toggle="tab">择<br>偶<br>信<br>息  </a></li>
 					</ul>
 					<div class="tab-content">
+						 <input type="hidden" id="userID" name="userID" value="${userID}">
 						 <div class="tab-pane active" id="infoPage">
 						 	<form class="form-horizontal validation-form" id="baseInfo-form" role="form">
 							 	<table style="width:100%">
@@ -367,22 +368,195 @@
 						 </div>
 						 <div class="tab-pane" id="imgPage">
 						 	
-						 	<form class="form-horizontal validation-form" id="detailInfo-form" role="form">
+						 	<form class="form-horizontal validation-form" id="imgInfo-form" role="form">
 							 	<table style="width:100%">
 							 		<tr>
+									     <td style="text-align:center;width:20%">
+									     	<img id="userImage1" name="userImage1" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+										 </td>						      
+									     <td style="text-align:center;width:20%">
+									     	<img id="userImage2" name="userImage3" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     </td>
+									     <td style="text-align:center;width:20%">
+									     	<img id="userImage3" name="userImage3" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+										 </td>						      
+									     <td style="text-align:center;width:20%">
+									     	<img id="userImage4" name="userImage4" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     </td>
+									     <td style="text-align:center;width:20%">
+									     	<img id="userImage5" name="userImage5" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+										 </td>						      
+								 	</tr>
+								 	<tr>
+									     <td style="text-align:center;width:20%">
+									     	<img id="userImage6" name="userImage6" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+										 </td>						      
+									     <td style="text-align:center;width:20%">
+									     	<img id="userImage7" name="userImage7" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     </td>
+									     <td style="text-align:center;width:20%">
+									     	<img id="userImage8" name="userImage8" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+										 </td>						      
+									     <td style="text-align:center;width:20%">
+									     	<img id="userImage9" name="userImage9" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     </td>
+									     <td style="text-align:center;width:20%">
+									     	<img id="userImage10" name="userImage10" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+										 </td>						      
+								 	</tr>
+							 	</table>
+							 </form>
+						 	
+						 </div>
+						 <div class="tab-pane" id="parentPage">
+						 	<form class="form-horizontal validation-form" id="parentInfo-form" role="form">
+							 	<table style="width:100%" id="parentInfo-table">
+							 		<tr>
+							 			<td > 
+							 				<label for="parentRelation"><span style="color:red">*</span>关系:</label>
+							 				<span>
+							 					<select id="parentRelation" name="parentRelation">
+							 						<option value="man">父亲</option>
+							 						<option value="woman">母亲</option>
+							 					</select>
+							 				</span>
+							 			</td>
+							 		</tr>
+							 		<tr>
+						 				<td>
+						                	<label for="parentAge"><span style="color:red">*</span>年龄:</label>
+						                	<span > <input type="text" id="parentAge" name="parentAge"> </span>
+										</td>
+							 		</tr>
+							 		<tr>
+							 			<td>
+									        <label for="parentRecommend" style="position:relative; top:-48px; height: 200px;">简介:</label>
+											<textarea id="parentRecommend" name="parentRecommend" maxlength="255" style="height: 200px;"></textarea>
+									    </td>
+									</tr>
+							 	</table>
+							 </form>
+						 </div>
+						 <div class="tab-pane" id="childrenPage">
+						 	<form class="form-horizontal validation-form" id="childrenInfo-form" role="form">
+							 	<table style="width:100%" id="childrenInfo-table">
+							 		<tr>
+							 			<td > 
+							 				<label for="childrenRelation"><span style="color:red">*</span>关系:</label>
+							 				<span>
+							 					<select id="childrenRelation" name="childrenRelation">
+							 						<option value="man">儿子</option>
+							 						<option value="woman">女儿</option>
+							 					</select>
+							 				</span>
+							 			</td>
+							 		</tr>
+							 		<tr>
+						 				<td>
+						                	<label for="childrenAge"><span style="color:red">*</span>年龄:</label>
+						                	<span > <input type="text" id="childrenAge" name="childrenAge"> </span>
+										</td>
+							 		</tr>
+							 		<tr>
+							 			<td>
+									        <label for="childrenRecommend" style="position:relative; top:-48px; height: 200px;">简介:</label>
+											<textarea id="childrenRecommend" name="childrenRecommend" maxlength="255" style="height: 200px;"></textarea>
+									    </td>
+									</tr>
+							 	</table>
+							 </form>
+						 </div>
+						 <div class="tab-pane" id="hobbyPage">
+						 	<form class="form-horizontal validation-form" id="hobbyInfo-form" role="form">
+							 	<table style="width:100%" id="hobbyInfo-table">
+							 		<tr> <td> <span > <input type="text" id="childrenAge" name="childrenAge" value="兴趣爱好1"> </span> </td> </tr>
+							 		<tr> <td> <span > <input type="text" id="childrenAge" name="childrenAge" value="兴趣爱好2"> </span> </td> </tr>
+							 		<tr> <td> <span > <input type="text" id="childrenAge" name="childrenAge" value="兴趣爱好3"> </span> </td> </tr>
+							 	</table>
+							 </form>
+						 </div>
+						 <div class="tab-pane" id="matePage">
+						 	<form class="form-horizontal validation-form" id="mateInfo-form" role="form">
+							 	<table style="width:100%">
+									<tr>
+										 <td>
+						                     <label for="mateSex"><span style="color:red">*</span>性别:</label>
+						                     <span > <input type="text" id="mateSex" name="mateSex"> </span>
+										 </td>
+										 <td>
+										 </td>		
+								    </tr>
+									<tr>
+										 <td>
+						                     <label for="mateAgeLevel"><span style="color:red">*</span>年龄:</label>
+						                     <span > <input type="text" id="mateAgeLevel" name="mateAgeLevel"> </span>
+										 </td>
+										 <td>
+										 	<label for="mateHeightLevel"><span style="color:red">*</span>身高:</label>
+						                    <span> <input type="text" id="mateHeightLevel" name="mateHeightLevel" > </span>
+										 </td>		
+								    </tr>
+									<tr>
+										 <td>
+						                     <label for="mateEducation"><span style="color:red">*</span>学历:</label>
+						                     <span > <input type="text" id="mateEducation" name="mateEducation"> </span>
+										 </td>
+										 <td>
+										 	<label for="mateIncomeLevel"><span style="color:red">*</span>月收入情况:</label>
+						                    <span> <input type="text" id="mateIncomeLevel" name="mateIncomeLevel" > </span>
+										 </td>		
+								    </tr>
+									<tr>
+										 <td>
+						                     <label for="mateMaritalStatus"><span style="color:red">*</span>婚姻状况:</label>
+						                     <span > <input type="text" id="mateMaritalStatus" name="mateMaritalStatus"> </span>
+										 </td>
+										 <td>
+										 	<label for="mateHaveChildren"><span style="color:red">*</span>子女状况:</label>
+						                    <span> <input type="text" id="mateHaveChildren" name="mateHaveChildren" > </span>
+										 </td>		
+								     </tr>
+									<tr>
+										 <td>
+						                     <label for="mateHaveCar"><span style="color:red">*</span>购车情况:</label>
+						                     <span > <input type="text" id="mateHaveCar" name="mateHaveCar"> </span>
+										 </td>
+										 <td>
+										 	<label for="mateHaveHome"><span style="color:red">*</span>购房情况:</label>
+						                    <span> <input type="text" id="mateHaveHome" name="mateHaveHome" > </span>
+										 </td>		
+								     </tr>
+								     <tr>
+										 <td>
+						                     <label for="provinceName"><span style="color:red">*</span>省:</label>
+						                     <span > <input type="text" id="provinceName" name="provinceName"> </span>
+										 </td>
+										 <td>
+										 	<label for="cityName"><span style="color:red">*</span>市:</label>
+						                    <span> <input type="text" id="cityName" name="cityName" > </span>
+										 </td>		
+								     </tr>
+								     <tr>
+										 <td>
+						                     <label for="countyName"><span style="color:red">*</span>区/县:</label>
+						                     <span > <input type="text" id="countyName" name="countyName"> </span>
+										 </td>
+										 <td>
+										 	<label for="townName"><span style="color:red">*</span>乡/街道:</label>
+						                    <span> <input type="text" id="townName" name="townName" > </span>
+										 </td>		
+								     </tr>
+									<tr>
 									     <td>
+									        <label  for="theNode_mate" style="position:relative; top:-48px; height: 200px;">备注:</label>
+										    <textarea id="theNode_mate" name="theNode_mate" maxlength="255" style="height: 200px;"></textarea>
 										 </td>						      
 									     <td>
 									     </td>
 								 	</tr>
 							 	</table>
 							 </form>
-						 	
 						 </div>
-						 <div class="tab-pane" id="parentPage"></div>
-						 <div class="tab-pane" id="childrenPage"></div>
-						 <div class="tab-pane" id="hobbyPage"></div>
-						 <div class="tab-pane" id="matePage"></div>
 					</div>
 				</div>
 
@@ -396,9 +570,9 @@
 		</div><!-- /.page-content-area -->
 	</div>
 <!-- inline scripts related to this page -->
-<script type="text/javascript" src="<%= basePath%>resources/js/permission/testWebPage/index.js"></script>
+<script type="text/javascript" src="<%= basePath%>resources/jsSoLove/userManager.js"></script>
 <script type="text/javascript">
-	permission.index.init();
+	solove.userManager.userView.init();
 </script>
 </body>
 </html>

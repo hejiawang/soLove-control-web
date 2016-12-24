@@ -386,4 +386,203 @@ soLove.userManager = {
 		 });
 	},
 	
+	/**
+	 * 查看用户信息
+	 */
+	userView	:	{
+		
+		/**
+		 * 获取用户信息
+		 */
+		init	:	function(){
+			var userViewUrl = soLove.userManager.common.myurl + '/view';
+			$.ajax({
+				url : userViewUrl,
+				data : {
+					"userID":$("#userID").val()
+				},
+				type: "get",
+				dataType : 'json',
+				success: function( result ){
+					if(result.success){
+						var userInfo = result.result.userInfo;
+						var userDetail = result.result.userDetail;
+						var userImg = result.result.userImg;
+						var userHobby = result.result.userHobby;
+						var userParent = result.result.userParent;
+						var userChildren = result.result.userChildren;
+						var userMate = result.result.userMate;
+						
+						soLove.userManager.userView.viewUserInfo(userInfo);
+						soLove.userManager.userView.viewUserDetail(userDetail);
+						soLove.userManager.userView.viewUserImg(userImg);
+						soLove.userManager.userView.viewUserHobby(userHobby);
+						soLove.userManager.userView.viewUserParent(userParent);
+						soLove.userManager.userView.viewUserChildren(userChildren);
+						soLove.userManager.userView.viewUserMate(userMate);
+					}
+				}
+			});
+		},
+		
+		/**
+		 * 查看用户基本信息
+		 */
+		viewUserInfo	:	function( data ){
+			$("#loginName").val(data.loginName);
+			$("#userLevel").val(data.userLevel);
+			$("#registerDate").val(data.registerDate);
+			$("#registerType").val(data.registerType);
+			$("#getChoiceNum").val(data.getChoiceNum);
+			$("#setChoiceNum").val(data.setChoiceNum);
+			$("#userChoiceTotal").val(data.userChoiceTotal);
+			$("#userChoiceNum").val(data.userChoiceNum);
+			$("#userIntegralTotal").val(data.userIntegralTotal);
+			$("#userMaritalSuccess").val(data.userMaritalSuccess);
+		},
+		
+		/**
+		 * 查看用户详细信息
+		 */
+		viewUserDetail	:	function( data ){
+			$("#userCard").val(data.userCard);
+			$("#userPhone").val(data.userPhone);
+			$("#userSex").val(data.userSex);
+			$("#userAge").val(data.userAge);
+			$("#userName").val(data.userName);
+			$("#userNick").val(data.userNick);
+			$("#userQQ").val(data.userQQ);
+			$("#userWeixin").val(data.userWeixin);
+			$("#userNation").val(data.userNation);
+			$("#userFaith").val(data.userFaith);
+			$("#userWork").val(data.userWork);
+			$("#userIncomeLevel").val(data.userIncomeLevel);
+			$("#userHeight").val(data.userHeight);
+			$("#userWeight").val(data.userWeight);
+			$("#userBirthday").val(data.userBirthday);
+			$("#userBlood").val(data.userBlood);
+			$("#userEducation").val(data.userEducation);
+			$("#userSchool").val(data.userSchool);
+			$("#userMagor").val(data.userMagor);
+			$("#userMaritalStatus").val(data.userMaritalStatus);
+			$("#userMaritalCard").val(data.userMaritalCard);
+			$("#userHaveCar").val(data.userHaveCar);
+			$("#userHaveHome").val(data.userHaveHome);
+			$("#provinceName").val(data.provinceName);
+			$("#cityName").val(data.cityName);
+			$("#countyName").val(data.countyName);
+			$("#townName").val(data.townName);
+			$("#userEvaluation").val(data.userEvaluation);
+			$("#userLovePlan").val(data.userLovePlan);
+		},
+		
+		/**
+		 * 查看用户照片
+		 */
+		viewUserImg	:	function( data ){
+			$("#userImage1").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage1);
+			$("#userImage2").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage2);
+			$("#userImage3").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage3);
+			$("#userImage4").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage4);
+			$("#userImage5").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage5);
+			$("#userImage6").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage6);
+			$("#userImage7").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage7);
+			$("#userImage8").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage8);
+			$("#userImage9").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage9);
+			$("#userImage10").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage10);
+		},
+		
+		/**
+		 * 查看用户兴趣爱好
+		 */
+		viewUserHobby	:	function( data ){
+			var htmlStr = "";
+			for( var i=0, i< data.length, i++ ){
+				var hobby = data[i];
+				htmlStr +=' <tr> <td> <span > <input type="text" value="'+hobby.content+'"> </span> </td> </tr> ';
+			}
+			$("#hobbyInfo-table").html(htmlStr);
+		},
+		
+		/**
+		 * 查看用户父母信息
+		 */
+		viewUserParent	:	function( data ){
+			var htmlStr = "";
+			for( var i=0, i< data.length, i++ ){
+				var parent = data[i];
+				htmlStr +=' '+
+				'<tr>'+
+		 		'	<td > '+
+		 		'		<label for="childrenRelation"><span style="color:red">*</span>关系:</label>'+
+		 		'		<span> <input type="text" id="childrenRelation" name="childrenRelation" value="'+parent.childrenRelation+'"> </span>'+
+		 		'	</td>'+
+		 		'</tr>'+
+		 		'<tr>'+
+	 			'	<td>'+
+	            '    	<label for="childrenAge"><span style="color:red">*</span>年龄:</label>'+
+	            '    	<span > <input type="text" id="childrenAge" name="childrenAge" value="'+ parent.childrenAge +'"> </span>'+
+				'	</td>'+
+		 		'</tr>'+
+		 		'<tr>'+
+		 		'	<td>'+
+				'        <label for="childrenRecommend" style="position:relative; top:-48px; height: 200px;">简介:</label>'+
+				'		<textarea id="childrenRecommend" name="childrenRecommend" value="'+ parent.childrenRecommend +'" maxlength="255" style="height: 200px;"></textarea>'+
+				'   </td>'+
+				'</tr>';
+			}
+			$("#parentInfo-table").html(htmlStr);
+		},
+		
+		/**
+		 * 查看用户子女信息
+		 */
+		viewUserChildren	:	function( data ){
+			var htmlStr = "";
+			for( var i=0, i< data.length, i++ ){
+				var children = data[i];
+				htmlStr +=' '+
+				'<tr>'+
+		 		'	<td > '+
+		 		'		<label for="childrenRelation"><span style="color:red">*</span>关系:</label>'+
+		 		'		<span> <input type="text" id="childrenRelation" name="childrenRelation" value="'+children.childrenRelation+'"> </span>'+
+		 		'	</td>'+
+		 		'</tr>'+
+		 		'<tr>'+
+	 			'	<td>'+
+	            '    	<label for="childrenAge"><span style="color:red">*</span>年龄:</label>'+
+	            '    	<span > <input type="text" id="childrenAge" name="childrenAge" value="'+ children.childrenAge +'"> </span>'+
+				'	</td>'+
+		 		'</tr>'+
+		 		'<tr>'+
+		 		'	<td>'+
+				'        <label for="childrenRecommend" style="position:relative; top:-48px; height: 200px;">简介:</label>'+
+				'		<textarea id="childrenRecommend" name="childrenRecommend" value="'+ children.childrenRecommend +'" maxlength="255" style="height: 200px;"></textarea>'+
+				'   </td>'+
+				'</tr>';
+			}
+			$("#childrenInfo-table").html(htmlStr);
+		},
+		
+		/**
+		 * 查看用户择偶信息
+		 */
+		viewUserMate	:	function( data ){
+			$("#mateSex").val(data.mateSex);
+			$("#mateAgeLevel").val(data.mateAgeLevel);
+			$("#mateHeightLevel").val(data.mateHeightLevel);
+			$("#mateEducation").val(data.mateEducation);
+			$("#mateIncomeLevel").val(data.mateIncomeLevel);
+			$("#mateMaritalStatus").val(data.mateMaritalStatus);
+			$("#mateHaveChildren").val(data.mateHaveChildren);
+			$("#mateHaveCar").val(data.mateHaveCar);
+			$("#mateHaveHome").val(data.mateHaveHome);
+			$("#provinceName").val(data.provinceName);
+			$("#cityName").val(data.cityName);
+			$("#countyName").val(data.countyName);
+			$("#townName").val(data.townName);
+			$("#theNode_mate").val(data.theNode);
+		},
+	},
+	
 };
