@@ -386,6 +386,38 @@ soLove.userManager = {
 		 });
 	},
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 查看用户信息
 	 */
@@ -480,16 +512,14 @@ soLove.userManager = {
 		 * 查看用户照片
 		 */
 		viewUserImg	:	function( data ){
-			$("#userImage1").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage1);
-			$("#userImage2").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage2);
-			$("#userImage3").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage3);
-			$("#userImage4").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage4);
-			$("#userImage5").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage5);
-			$("#userImage6").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage6);
-			$("#userImage7").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage7);
-			$("#userImage8").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage8);
-			$("#userImage9").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage9);
-			$("#userImage10").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + data.userImage10);
+			for( var i=1; i<=10; i++ ){
+				var param = "userImage" + i;
+				var imageStr = data.param;
+				if( param ){
+					$("#userImage"i"_src").attr("src", soLove.domainUrl.baseDomain + "resources/upload/userImg/" + param);
+					$("#userImage"+i).val(param);
+				}
+			}
 		},
 		
 		/**
@@ -499,10 +529,33 @@ soLove.userManager = {
 			var htmlStr = "";
 			for( var i=0, i< data.length, i++ ){
 				var hobby = data[i];
-				htmlStr +=' <tr> <td> <span > <input type="text" value="'+hobby.content+'"> </span> </td> </tr> ';
+				htmlStr +=	' <tr id="hobby_'+hobby.hobbyID+'"> '+
+							' 	<td> '+ 
+							' 		<label style="text-align:left;"><button onclick="soLove.userManager.userView.js_deleteHobby("hobby_'+hobby.hobbyID+'")" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >删除信息</button></label> '+
+							' 		<span> '+
+							' 			<select name="content"> '+
+							' 				<option value="'+hobby.hobbyID+'">'+hobby.content+'</option> '+
+							' 			</select> '+
+							' 		</span> '+
+							' 	</td>  '+
+					 		' </tr> ';
 			}
 			$("#hobbyInfo-table").html(htmlStr);
 		},
+		
+		/**
+		 * 删除已选的用户兴趣爱好
+		 */
+		js_deleteHobby	:	function( hobby_hobbyID ){
+			$("#" + hobby_hobbyID).remove();
+		}
+		
+		/**
+		 * 新增用户兴趣爱好的选择框
+		 */
+		js_raiseHobby	:	function(){
+			
+		}
 		
 		/**
 		 * 查看用户父母信息
@@ -512,26 +565,53 @@ soLove.userManager = {
 			for( var i=0, i< data.length, i++ ){
 				var parent = data[i];
 				htmlStr +=' '+
-				'<tr>'+
-		 		'	<td > '+
-		 		'		<label for="childrenRelation"><span style="color:red">*</span>关系:</label>'+
-		 		'		<span> <input type="text" id="childrenRelation" name="childrenRelation" value="'+parent.childrenRelation+'"> </span>'+
-		 		'	</td>'+
-		 		'</tr>'+
-		 		'<tr>'+
-	 			'	<td>'+
-	            '    	<label for="childrenAge"><span style="color:red">*</span>年龄:</label>'+
-	            '    	<span > <input type="text" id="childrenAge" name="childrenAge" value="'+ parent.childrenAge +'"> </span>'+
-				'	</td>'+
-		 		'</tr>'+
-		 		'<tr>'+
-		 		'	<td>'+
-				'        <label for="childrenRecommend" style="position:relative; top:-48px; height: 200px;">简介:</label>'+
-				'		<textarea id="childrenRecommend" name="childrenRecommend" value="'+ parent.childrenRecommend +'" maxlength="255" style="height: 200px;"></textarea>'+
-				'   </td>'+
-				'</tr>';
+				' <div id="parent_'+parent.parentID+'"> '+
+				' 	<tr> '+
+				' 		<td > '+ 
+				' 			<label><span style="color:red">*</span>关系:</label> '+
+				' 			<span> '+
+				' 				<select name="parentRelation"> '+
+				' 					<option value="man">父亲</option> '+
+				' 					<option value="woman">母亲</option> '+
+				' 				</select> '+
+				' 			</span> '+
+				' 		</td> '+
+				' 	</tr> '+
+				' 	<tr> '+
+				' 		<td> '+
+				'        	<label><span style="color:red">*</span>年龄:</label> '+
+				'         	<span > <input type="text" name="parentAge" value="'+parent.parentAge+'"> </span> '+
+				' 		</td> '+
+				' 	</tr> '+
+				' 	<tr style="height: 200px;"> '+
+				' 		<td style="height: 200px;"> '+
+				' 	        <label style="position:relative; top:-180px; ">简介:</label> '+
+				' 			<textarea name="parentRecommend" maxlength="255" style="height: 200px;" value="'+parent.parentRecommend+'"></textarea> '+
+				' 	    </td> '+
+				' 	</tr> '+
+				' 	<tr> '+
+				' 		<td> '+
+				' 			<label></label> '+
+				' 			<span><button onclick="soLove.userManager.userView.js_deleteParent("parent_'+parent.parentID+'")" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >删除信息</button></span> '+
+				' 		</td> '+
+				' 	</tr> '+
+				' </div> ';
 			}
 			$("#parentInfo-table").html(htmlStr);
+		},
+		
+		/**
+		 * 删除用户母女信息的选择框
+		 */
+		js_deleteParent	:	function(parent_parentID){
+			$("#" + parent_parentID).remove();
+		},
+		
+		/**
+		 * 新增用户父母信息的选择框
+		 */
+		js_raiseParent	:	function(){
+			
 		},
 		
 		/**
@@ -542,26 +622,53 @@ soLove.userManager = {
 			for( var i=0, i< data.length, i++ ){
 				var children = data[i];
 				htmlStr +=' '+
-				'<tr>'+
-		 		'	<td > '+
-		 		'		<label for="childrenRelation"><span style="color:red">*</span>关系:</label>'+
-		 		'		<span> <input type="text" id="childrenRelation" name="childrenRelation" value="'+children.childrenRelation+'"> </span>'+
-		 		'	</td>'+
-		 		'</tr>'+
-		 		'<tr>'+
-	 			'	<td>'+
-	            '    	<label for="childrenAge"><span style="color:red">*</span>年龄:</label>'+
-	            '    	<span > <input type="text" id="childrenAge" name="childrenAge" value="'+ children.childrenAge +'"> </span>'+
-				'	</td>'+
-		 		'</tr>'+
-		 		'<tr>'+
-		 		'	<td>'+
-				'        <label for="childrenRecommend" style="position:relative; top:-48px; height: 200px;">简介:</label>'+
-				'		<textarea id="childrenRecommend" name="childrenRecommend" value="'+ children.childrenRecommend +'" maxlength="255" style="height: 200px;"></textarea>'+
-				'   </td>'+
-				'</tr>';
+				' <div id="parent_'+children.childrenID+'"> '+
+				' 	<tr> '+
+				' 		<td > '+ 
+				' 			<label><span style="color:red">*</span>关系:</label> '+
+				' 			<span> '+
+				' 				<select name="parentRelation"> '+
+				' 					<option value="man">父亲</option> '+
+				' 					<option value="woman">母亲</option> '+
+				' 				</select> '+
+				' 			</span> '+
+				' 		</td> '+
+				' 	</tr> '+
+				' 	<tr> '+
+				' 		<td> '+
+				'        	<label><span style="color:red">*</span>年龄:</label> '+
+				'         	<span > <input type="text" name="parentAge" value="'+children.childrenAge+'"> </span> '+
+				' 		</td> '+
+				' 	</tr> '+
+				' 	<tr style="height: 200px;"> '+
+				' 		<td style="height: 200px;"> '+
+				' 	        <label style="position:relative; top:-180px; ">简介:</label> '+
+				' 			<textarea name="parentRecommend" maxlength="255" style="height: 200px;" value="'+children.childrenRecommend+'"></textarea> '+
+				' 	    </td> '+
+				' 	</tr> '+
+				' 	<tr> '+
+				' 		<td> '+
+				' 			<label></label> '+
+				' 			<span><button onclick="soLove.userManager.userView.js_deleteChildren("parent_'+children.childrenID+'")" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >删除信息</button></span> '+
+				' 		</td> '+
+				' 	</tr> '+
+				' </div> ';
 			}
 			$("#childrenInfo-table").html(htmlStr);
+		},
+		
+		/**
+		 * 删除用户母女信息的选择框
+		 */
+		js_deleteChildren	:	function(children_childrenID){
+			$("#" + children_childrenID).remove();
+		},
+		
+		/**
+		 * 新增用户父母信息的选择框
+		 */
+		js_raiseChildren	:	function(){
+			
 		},
 		
 		/**
@@ -583,6 +690,205 @@ soLove.userManager = {
 			$("#townName").val(data.townName);
 			$("#theNode_mate").val(data.theNode);
 		},
+		
+		/**
+		 * 关闭用户信息查看页面
+		 */
+		userViewClose	:	function(){
+			window.close();
+		}
+	},
+	
+	/**
+	 * 用户修改信息
+	 */
+	userModify	:	{
+		
+		/**
+		 * 首先获取用户信息
+		 */
+		init	:	function(){
+			var userViewUrl = soLove.userManager.common.myurl + '/view';
+			$.ajax({
+				url : userViewUrl,
+				data : {
+					"userID":$("#userID").val()
+				},
+				type: "get",
+				dataType : 'json',
+				success: function( result ){
+					if(result.success){
+						var userInfo = result.result.userInfo;
+						var userDetail = result.result.userDetail;
+						var userImg = result.result.userImg;
+						var userHobby = result.result.userHobby;
+						var userParent = result.result.userParent;
+						var userChildren = result.result.userChildren;
+						var userMate = result.result.userMate;
+						
+						soLove.userManager.userView.viewUserInfo(userInfo);
+						soLove.userManager.userView.viewUserDetail(userDetail);
+						soLove.userManager.userView.viewUserImg(userImg);
+						soLove.userManager.userView.viewUserHobby(userHobby);
+						soLove.userManager.userView.viewUserParent(userParent);
+						soLove.userManager.userView.viewUserChildren(userChildren);
+						soLove.userManager.userView.viewUserMate(userMate);
+					}
+				}
+			});
+		},
+		
+		
+		/**
+		 * 修改用户信息
+		 */
+		userModifySubmit	:	function(){
+			/**
+			 * 首先修改userInfo，
+			 * 然后修改USerDetail，
+			 * 在然后userImg——userHobby——userParent——userChildren——userMate
+			 * 依次进行
+			 * 在ajax的success回调中进行下一个修改项
+			 */
+			soLove.userManager.userModify.modifyUserInfo();
+		},
+		
+		/**
+		 * 修改用户userInfo
+		 */
+		modifyUserInfo	:	function(){
+			var modifyUserInfoUrl = "";
+			$.ajax({
+				url : modifyUserInfoUrl,
+				data :  $("#baseInfo-form").serialize(),
+				type: "post",
+				dataType : 'json',
+				success: function( result ){
+					if(result.success){
+						soLove.userManager.userModify.modifyUserDetail();
+					}
+				}
+			});
+		},
+		
+		/**
+		 * 修改用户userDetail
+		 */
+		modifyUserDetail	:	function(){
+			var url = "";
+			$.ajax({
+				url : url,
+				data :  $("#detailInfo-form").serialize(),
+				type: "post",
+				dataType : 'json',
+				success: function( result ){
+					if(result.success){
+						soLove.userManager.userModify.modifyUserImg();
+					}
+				}
+			});
+		},
+		
+		/**
+		 * 修改用户userImg
+		 */
+		modifyUserImg	:	function(){
+			var url = "";
+			$.ajax({
+				url : url,
+				data :  $("#imgInfo-form").serialize(),
+				type: "post",
+				dataType : 'json',
+				success: function( result ){
+					if(result.success){
+						soLove.userManager.userModify.modifyUserHobby();
+					}
+				}
+			});
+		},
+		
+		/**
+		 * 修改用户userHobby</br>
+		 * 传数组
+		 */
+		modifyUserHobby	:	function(){
+			var url = "";
+			$.ajax({
+				url : url,
+				data :  $("#hobbyInfo-form").serialize(),
+				type: "post",
+				dataType : 'json',
+				success: function( result ){
+					if(result.success){
+						soLove.userManager.userModify.modifyUserParent();
+					}
+				}
+			});
+		},
+		
+		/**
+		 * 修改用户userParent
+		 */
+		modifyUserParent	:	function(){
+			var url = "";
+			$.ajax({
+				url : url,
+				data :  $("#parentInfo-form").serialize(),
+				type: "post",
+				dataType : 'json',
+				success: function( result ){
+					if(result.success){
+						soLove.userManager.userModify.modifyUserChildren();
+					}
+				}
+			});
+		},
+		
+		/**
+		 * 修改用户userChildren
+		 */
+		modifyUserChildren	:	function(){
+			var url = "";
+			$.ajax({
+				url : url,
+				data :  $("#childrenInfo-form").serialize(),
+				type: "post",
+				dataType : 'json',
+				success: function( result ){
+					if(result.success){
+						soLove.userManager.userModify.modifyUserMate();
+					}
+				}
+			});
+		},
+		
+		/**
+		 * 修改用户userMate</br>
+		 * 提示修改用户信息成功,关闭修改页面，执行用户管理页的查询方法
+		 */
+		modifyUserMate	:	function(){
+			var url = "";
+			$.ajax({
+				url : url,
+				data :  $("#mateInfo-form").serialize(),
+				type: "post",
+				dataType : 'json',
+				success: function( result ){
+					if(result.success){
+						alert("修改用户信息成功");
+						window.opener.location="javascript:soLove.userManeger.goSearch()";
+						window.close();
+					}
+				}
+			});
+		}
+		
+		/**
+		 * 关闭用户信息查看页面
+		 */
+		userModifyClose	:	function(){
+			window.close();
+		}
 	},
 	
 };

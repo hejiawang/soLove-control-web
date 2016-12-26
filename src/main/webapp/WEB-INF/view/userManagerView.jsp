@@ -133,8 +133,7 @@
 
 			<div class="page-content">
 
-				<button id="raiseSubmit" onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px;" >确定</button>
-				<button id="raiseClose" onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >取消</button>
+				<button id="userViewClose" onclick="soLove.userManager.userView.userViewClose();" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >关闭</button>
 
 				<div class="tabbable tabs-left ">
 					<ul class="nav nav-tabs" style="padding-top: 0px">
@@ -149,36 +148,36 @@
 					<div class="tab-content">
 						 <input type="hidden" id="userID" name="userID" value="${userID}">
 						 <div class="tab-pane active" id="infoPage">
-						 	<form class="form-horizontal validation-form" id="baseInfo-form" role="form">
+						 	<form class="form-horizontal validation-form" id="baseInfo-form" role="form" action="javascript:void(0)">
 							 	<table style="width:100%">
 									<tr>
 										 <td>
 						                     <label for="loginName"><span style="color:red">*</span>注册手机号:</label>
-						                     <span > <input type="text" id="loginName" name="loginName"> </span>
+						                     <span > <input type="text" id="loginName" name="loginName" readonly="readonly"> </span>
 										 </td>
 										 <td> 
 										 	<label for="userLevel"><span style="color:red">*</span>用户级别:</label>
-						                     <span> <input type="text" id="userLevel" name="userLevel" > </span>	
+						                     <span> <input type="text" id="userLevel" name="userLevel" readonly="readonly"> </span>	
 										 </td>		
 								     </tr>
 								     <tr>
 										 <td>
 						                     <label for="registerDate"><span style="color:red">*</span>注册日期:</label>
-						                     <span > <input type="text" id="registerDate" name="registerDate"> </span>
+						                     <span > <input type="text" id="registerDate" name="registerDate" readonly="readonly"> </span>
 										 </td>
 										 <td>
 						                     <label for="registerType"><span style="color:red">*</span>注册类型:</label>
-						                     <span> <input type="text" id="registerType" name="registerType" > </span>	
+						                     <span> <input type="text" id="registerType" name="registerType" readonly="readonly"> </span>	
 										 </td>		
 								     </tr>
 								     <tr>
 										 <td>
 						                     <label for="getChoiceNum"><span style="color:red">*</span>获赞数:</label>
-						                     <span > <input type="text" id="getChoiceNum" name="getChoiceNum"> </span>
+						                     <span > <input type="text" id="getChoiceNum" name="getChoiceNum" readonly="readonly"> </span>
 										 </td>
 										 <td>
 						                     <label for="setChoiceNum"><span style="color:red">*</span>点赞数:</label>
-						                     <span> <input type="text" id="setChoiceNum" name="setChoiceNum" > </span>	
+						                     <span> <input type="text" id="setChoiceNum" name="setChoiceNum" readonly="readonly"> </span>	
 										 </td>		
 								     </tr>
 								     <tr>
@@ -188,7 +187,7 @@
 										 </td>
 										 <td>
 						                     <label for="userChoiceNum"><span style="color:red">*</span>已看条数:</label>
-						                     <span> <input type="text" id="userChoiceNum" name="userChoiceNum" > </span>	
+						                     <span> <input type="text" id="userChoiceNum" name="userChoiceNum" readonly="readonly"> </span>	
 										 </td>		
 								     </tr>
 								     <tr>
@@ -198,14 +197,19 @@
 										 </td>
 										 <td>
 						                     <label for="userMaritalSuccess"><span style="color:red">*</span>是否脱单:</label>
-						                     <span> <input type="text" id="userMaritalSuccess" name="userMaritalSuccess" > </span>	
+						                     <span> 
+						                     	<select id="userMaritalSuccess" name="userMaritalSuccess">
+							 						<option value="no">否</option>
+							 						<option value="yes">是</option>
+							 					</select>
+							 				</span>
 										 </td>		
 								     </tr>
 							     </table>
 						     </form>
 						 </div>
 						 <div class="tab-pane" id="detailPage">
-						 	<form class="form-horizontal validation-form" id="detailInfo-form" role="form">
+						 	<form class="form-horizontal validation-form" id="detailInfo-form" role="form" action="javascript:void(0)">
 							 	<table style="width:100%">
 								     <tr>
 										 <td>
@@ -220,7 +224,12 @@
 								     <tr>
 										 <td>
 						                     <label for="userSex"><span style="color:red">*</span>性别:</label>
-						                     <span > <input type="text" id="userSex" name="userSex"> </span>
+						                     <span> 
+						                     	<select id="userSex" name="userSex">
+							 						<option value="man">男</option>
+							 						<option value="woman">女</option>
+							 					</select>
+							 				</span>
 										 </td>
 										 <td>
 						                     <label for="userAge"><span style="color:red">*</span>年龄:</label>
@@ -264,7 +273,13 @@
 										 </td>
 										 <td>
 						                     <label for="userIncomeLevel"><span style="color:red">*</span>月收入范围:</label>
-						                     <span> <input type="text" id="userIncomeLevel" name="userIncomeLevel" > </span>	
+						                     <span> 
+						                     	<select id="userIncomeLevel" name="userIncomeLevel">
+							 						<option value="0">2000及以下</option>
+							 						<option value="1">2001——10000</option>
+							 						<option value="2">10000及以上</option>
+							 					</select>
+							 				</span>
 										 </td>		
 								     </tr>
 								     <tr>
@@ -284,13 +299,32 @@
 										 </td>
 										 <td>
 										 	<label for="userBlood"><span style="color:red">*</span>血型:</label>
-						                    <span> <input type="text" id="userBlood" name="userBlood" > </span>
+						                    <span> 
+						                     	<select id="userBlood" name="userBlood">
+							 						<option value="A">A</option>
+							 						<option value="B">B</option>
+							 						<option value="AB">AB</option>
+							 						<option value="O">O</option>
+							 					</select>
+							 				</span>
 										 </td>		
 								     </tr>
 								     <tr>
 										 <td>
 						                     <label for="userEducation"><span style="color:red">*</span>学历:</label>
-						                     <span > <input type="text" id="userEducation" name="userEducation"> </span>
+						                     <span>
+						                     	<select id="userEducation" name="userEducation">
+							 						<option value="0">无</option>
+							 						<option value="1">小学</option>
+							 						<option value="2">初中</option>
+							 						<option value="3">高中</option>
+							 						<option value="4">大专</option>
+							 						<option value="5">专科</option>
+							 						<option value="6">本科</option>
+							 						<option value="7">硕士</option>
+							 						<option value="8">博士</option>
+							 					</select>
+							 				</span>
 										 </td>
 										 <td>
 										 </td>		
@@ -308,7 +342,12 @@
 								     <tr>
 										 <td>
 						                     <label for="userMaritalStatus"><span style="color:red">*</span>婚姻状况:</label>
-						                     <span > <input type="text" id="userMaritalStatus" name="userMaritalStatus"> </span>
+						                     <span>
+						                     	<select id="userMaritalStatus" name="userMaritalStatus">
+							 						<option value="unmarried">未婚</option>
+							 						<option value="remarried">离异</option>
+							 					</select>
+							 				 </span>
 										 </td>
 										 <td>
 										 	<label for="userMaritalCard"><span style="color:red">*</span>离婚证号:</label>
@@ -318,31 +357,61 @@
 								     <tr>
 										 <td>
 						                     <label for="userHaveCar"><span style="color:red">*</span>购车情况:</label>
-						                     <span > <input type="text" id="userHaveCar" name="userHaveCar"> </span>
+						                     <span>
+						                     	<select id="userHaveCar" name="userHaveCar">
+							 						<option value="no">无</option>
+							 						<option value="yes">有</option>
+							 					</select>
+							 				 </span>
 										 </td>
 										 <td>
 										 	<label for="userHaveHome"><span style="color:red">*</span>购房情况:</label>
-						                    <span> <input type="text" id="userHaveHome" name="userHaveHome" > </span>
+						                    <span>
+						                     	<select id="userHaveHome" name="userHaveHome">
+							 						<option value="no">无</option>
+							 						<option value="yes">有</option>
+							 					</select>
+							 				 </span>
 										 </td>		
 								     </tr>
 								     <tr>
 										 <td>
 						                     <label for="provinceName"><span style="color:red">*</span>省:</label>
-						                     <span > <input type="text" id="provinceName" name="provinceName"> </span>
+						                     <span>
+						                     	<select id="provinceID" name="provinceID">
+							 						<option value=""></option>
+							 					</select>
+							 				 </span>
+						                     <input type="hidden" id="provinceName" name="provinceName" >
 										 </td>
 										 <td>
 										 	<label for="cityName"><span style="color:red">*</span>市:</label>
-						                    <span> <input type="text" id="cityName" name="cityName" > </span>
+										 	<span>
+						                     	<select id="cityID" name="cityID">
+							 						<option value=""></option>
+							 					</select>
+							 				 </span>
+						                    <input type="hidden" id="cityName" name="cityName" >
 										 </td>		
 								     </tr>
 								     <tr>
 										 <td>
 						                     <label for="countyName"><span style="color:red">*</span>区/县:</label>
-						                     <span > <input type="text" id="countyName" name="countyName"> </span>
+						                     <span>
+						                     	<select id="countyID" name="countyID">
+							 						<option value=""></option>
+							 					</select>
+							 				 </span>
+						                     <input type="hidden" id="countyName" name="countyName">
 										 </td>
 										 <td>
 										 	<label for="townName"><span style="color:red">*</span>乡/街道:</label>
-						                    <span> <input type="text" id="townName" name="townName" > </span>
+										 	<span>
+						                     	<select id="townID" name="townID">
+							 						<option value=""></option>
+							 					</select>
+							 				 </span>
+						                     <input type="hidden" id="townName" name="townName" >
 										 </td>		
 								     </tr>
 								     <tr>
@@ -366,42 +435,71 @@
 							     </table>
 						     </form>
 						 </div>
-						 <div class="tab-pane" id="imgPage">
-						 	
-						 	<form class="form-horizontal validation-form" id="imgInfo-form" role="form">
+						 <div class="tab-pane" id="imgPage" >
+						 	<form class="form-horizontal validation-form" id="imgInfo-form" role="form" action="javascript:void(0)">
 							 	<table style="width:100%">
 							 		<tr>
 									     <td style="text-align:center;width:20%">
-									     	<img id="userImage1" name="userImage1" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<img id="userImage1_src" name="userImage1_src" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<input type="hidden" id="userImage1" name="userImage1"/>
+									     	<input type="file" id="userImage1_file" name="userImage1_file" style="display:none"/>
+									     	<button onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;">删除</button>
 										 </td>						      
 									     <td style="text-align:center;width:20%">
-									     	<img id="userImage2" name="userImage3" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<img id="userImage2_src" name="userImage2_src" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<input type="hidden" id="userImage2" name="userImage2"/>
+									     	<input type="file" id="userImage2_file" name="userImage2_file" style="display:none"/>
+									     	<button onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;">删除</button>
 									     </td>
 									     <td style="text-align:center;width:20%">
-									     	<img id="userImage3" name="userImage3" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<img id="userImage3_src" name="userImage3_src" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<input type="hidden" id="userImage3" name="userImage3"/>
+									     	<input type="file" id="userImage3_file" name="userImage3_file" style="display:none"/>
+									     	<button onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;">删除</button>
 										 </td>						      
 									     <td style="text-align:center;width:20%">
-									     	<img id="userImage4" name="userImage4" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<img id="userImage4_src" name="userImage4_src" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<input type="hidden" id="userImage4" name="userImage4"/>
+									     	<input type="file" id="userImage4_file" name="userImage4_file" style="display:none"/>
+									     	<button onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;">删除</button>
 									     </td>
 									     <td style="text-align:center;width:20%">
-									     	<img id="userImage5" name="userImage5" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<img id="userImage5_src" name="userImage5_src" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<input type="hidden" id="userImage5" name="userImage5"/>
+									     	<input type="file" id="userImage5_file" name="userImage5_file" style="display:none"/>
+									     	<button onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;">删除</button>
 										 </td>						      
 								 	</tr>
 								 	<tr>
 									     <td style="text-align:center;width:20%">
-									     	<img id="userImage6" name="userImage6" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<img id="userImage6_src" name="userImage6_src" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<input type="hidden" id="userImage6" name="userImage6"/>
+									     	<input type="file" id="userImage6_file" name="userImage6_file" style="display:none"/>
+									     	<button onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;">删除</button>
 										 </td>						      
 									     <td style="text-align:center;width:20%">
-									     	<img id="userImage7" name="userImage7" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<img id="userImage7_src" name="userImage7_src" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<input type="hidden" id="userImage7" name="userImage7"/>
+									     	<input type="file" id="userImage7_file" name="userImage7_file" style="display:none"/>
+									     	<button onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;">删除</button>
 									     </td>
 									     <td style="text-align:center;width:20%">
-									     	<img id="userImage8" name="userImage8" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<img id="userImage8_src" name="userImage8_src" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<input type="hidden" id="userImage8" name="userImage8"/>
+									     	<input type="file" id="userImage8_file" name="userImage8_file" style="display:none"/>
+									     	<button onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;">删除</button>
 										 </td>						      
 									     <td style="text-align:center;width:20%">
-									     	<img id="userImage9" name="userImage9" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<img id="userImage9_src" name="userImage9_src" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<input type="hidden" id="userImage9" name="userImage9"/>
+									     	<input type="file" id="userImage9_file" name="userImage9_file" style="display:none"/>
+									     	<button onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;">删除</button>
 									     </td>
 									     <td style="text-align:center;width:20%">
-									     	<img id="userImage10" name="userImage10" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<img id="userImage10_src" name="userImage10_src" src="<%= basePath%>resources/upload/default_img.png" style="width:200px; height:270px;">
+									     	<input type="hidden" id="userImage10" name="userImage10"/>
+									     	<input type="file" id="userImage10_file" name="userImage10_file" style="display:none"/>
+									     	<button onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;">删除</button>
 										 </td>						      
 								 	</tr>
 							 	</table>
@@ -409,79 +507,110 @@
 						 	
 						 </div>
 						 <div class="tab-pane" id="parentPage">
-						 	<form class="form-horizontal validation-form" id="parentInfo-form" role="form">
-							 	<table style="width:100%" id="parentInfo-table">
-							 		<tr>
-							 			<td > 
-							 				<label for="parentRelation"><span style="color:red">*</span>关系:</label>
-							 				<span>
-							 					<select id="parentRelation" name="parentRelation">
-							 						<option value="man">父亲</option>
-							 						<option value="woman">母亲</option>
-							 					</select>
-							 				</span>
-							 			</td>
-							 		</tr>
-							 		<tr>
-						 				<td>
-						                	<label for="parentAge"><span style="color:red">*</span>年龄:</label>
-						                	<span > <input type="text" id="parentAge" name="parentAge"> </span>
-										</td>
-							 		</tr>
-							 		<tr>
-							 			<td>
-									        <label for="parentRecommend" style="position:relative; top:-48px; height: 200px;">简介:</label>
-											<textarea id="parentRecommend" name="parentRecommend" maxlength="255" style="height: 200px;"></textarea>
-									    </td>
-									</tr>
+						 	<button onclick="soLove.userManager.userView.js_raiseParent()" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >增加信息</button>
+						 	<form class="form-horizontal validation-form" id="parentInfo-form" role="form" action="javascript:void(0)">
+							 	<table style="width:100%">
+							 		<div>
+								 		<tr>
+								 			<td > 
+								 				<label for="parentRelation"><span style="color:red">*</span>关系:</label>
+								 				<span>
+								 					<select id="parentRelation" name="parentRelation">
+								 						<option value="man">父亲</option>
+								 						<option value="woman">母亲</option>
+								 					</select>
+								 				</span>
+								 			</td>
+								 		</tr>
+								 		<tr>
+							 				<td>
+							                	<label for="parentAge"><span style="color:red">*</span>年龄:</label>
+							                	<span > <input type="text" id="parentAge" name="parentAge"> </span>
+											</td>
+								 		</tr>
+								 		<tr style="height: 200px;">
+								 			<td style="height: 200px;">
+										        <label for="parentRecommend" style="position:relative; top:-180px; ">简介:</label>
+												<textarea id="parentRecommend" name="parentRecommend" maxlength="255" style="height: 200px;"></textarea>
+										    </td>
+										</tr>
+										<tr>
+											<td>
+												<label></label>
+												<span><button onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >删除信息</button></span>
+											</td>
+										</tr>
+									</div>
 							 	</table>
 							 </form>
 						 </div>
 						 <div class="tab-pane" id="childrenPage">
-						 	<form class="form-horizontal validation-form" id="childrenInfo-form" role="form">
-							 	<table style="width:100%" id="childrenInfo-table">
-							 		<tr>
-							 			<td > 
-							 				<label for="childrenRelation"><span style="color:red">*</span>关系:</label>
-							 				<span>
-							 					<select id="childrenRelation" name="childrenRelation">
-							 						<option value="man">儿子</option>
-							 						<option value="woman">女儿</option>
-							 					</select>
-							 				</span>
-							 			</td>
-							 		</tr>
-							 		<tr>
-						 				<td>
-						                	<label for="childrenAge"><span style="color:red">*</span>年龄:</label>
-						                	<span > <input type="text" id="childrenAge" name="childrenAge"> </span>
-										</td>
-							 		</tr>
-							 		<tr>
-							 			<td>
-									        <label for="childrenRecommend" style="position:relative; top:-48px; height: 200px;">简介:</label>
-											<textarea id="childrenRecommend" name="childrenRecommend" maxlength="255" style="height: 200px;"></textarea>
-									    </td>
-									</tr>
+						 	<button onclick="soLove.userManager.userView.js_raiseChildren()" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >增加信息</button>
+						 	<form class="form-horizontal validation-form" id="childrenInfo-form" role="form" action="javascript:void(0)">
+							 	<table style="width:100%">
+							 		<div>
+								 		<tr>
+								 			<td > 
+								 				<label for="childrenRelation"><span style="color:red">*</span>关系:</label>
+								 				<span>
+								 					<select id="childrenRelation" name="childrenRelation">
+								 						<option value="man">儿子</option>
+								 						<option value="woman">女儿</option>
+								 					</select>
+								 				</span>
+								 			</td>
+								 		</tr>
+								 		<tr>
+							 				<td>
+							                	<label for="childrenAge"><span style="color:red">*</span>年龄:</label>
+							                	<span > <input type="text" id="childrenAge" name="childrenAge"> </span>
+											</td>
+								 		</tr>
+								 		<tr>
+								 			<td>
+										        <label for="childrenRecommend" style="position:relative; top:-180px;">简介:</label>
+												<textarea id="childrenRecommend" name="childrenRecommend" maxlength="255" style="height: 200px;"></textarea>
+										    </td>
+										</tr>
+										<tr>
+											<td>
+												<label></label>
+												<span><button id="raiseClose" onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >删除信息</button></span>
+											</td>
+										</tr>
+									</div>
 							 	</table>
 							 </form>
 						 </div>
 						 <div class="tab-pane" id="hobbyPage">
-						 	<form class="form-horizontal validation-form" id="hobbyInfo-form" role="form">
-							 	<table style="width:100%" id="hobbyInfo-table">
-							 		<tr> <td> <span > <input type="text" id="childrenAge" name="childrenAge" value="兴趣爱好1"> </span> </td> </tr>
-							 		<tr> <td> <span > <input type="text" id="childrenAge" name="childrenAge" value="兴趣爱好2"> </span> </td> </tr>
-							 		<tr> <td> <span > <input type="text" id="childrenAge" name="childrenAge" value="兴趣爱好3"> </span> </td> </tr>
+						 	<button onclick="soLove.userManager.userView.js_raiseHobby()" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >增加信息</button>
+						 	<form class="form-horizontal validation-form" id="hobbyInfo-form" role="form" action="javascript:void(0)">
+							 	<table style="width:100%">
+							 		<tr> 
+							 			<td> 
+							 				<label style="text-align:left;"><button id="raiseClose" onclick="" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >删除信息</button></label>
+							 				<span>
+							 					<select id="content1" name="content">
+							 						<option value="1">爱好1</option>
+							 					</select>
+							 				</span>
+							 			</td> 
+							 		</tr>
 							 	</table>
 							 </form>
 						 </div>
 						 <div class="tab-pane" id="matePage">
-						 	<form class="form-horizontal validation-form" id="mateInfo-form" role="form">
+						 	<form class="form-horizontal validation-form" id="mateInfo-form" role="form" action="javascript:void(0)">
 							 	<table style="width:100%">
 									<tr>
 										 <td>
 						                     <label for="mateSex"><span style="color:red">*</span>性别:</label>
-						                     <span > <input type="text" id="mateSex" name="mateSex"> </span>
+						                     <span>
+							 					<select id="mateSex" name="mateSex">
+							 						<option value="man">男</option>
+							 						<option value="woman">女</option>
+							 					</select>
+							 				</span>
 										 </td>
 										 <td>
 										 </td>		
@@ -489,67 +618,143 @@
 									<tr>
 										 <td>
 						                     <label for="mateAgeLevel"><span style="color:red">*</span>年龄:</label>
-						                     <span > <input type="text" id="mateAgeLevel" name="mateAgeLevel"> </span>
+						                     <span>
+							 					<select id="mateAgeLevel" name="mateAgeLevel">
+							 						<option value="0">25及以下</option>
+							 						<option value="1">26-30</option>
+							 						<option value="2">31-35</option>
+							 						<option value="3">36-40</option>
+							 						<option value="4">41-50</option>
+							 						<option value="5">50及以上</option>
+							 					</select>
+							 				</span>
 										 </td>
 										 <td>
 										 	<label for="mateHeightLevel"><span style="color:red">*</span>身高:</label>
-						                    <span> <input type="text" id="mateHeightLevel" name="mateHeightLevel" > </span>
+						                    <span>
+							 					<select id="mateHeightLevel" name="mateHeightLevel">
+							 						<option value="0">-160</option>
+							 						<option value="1">160-165</option>
+							 						<option value="2">165-170</option>
+							 						<option value="3">170-175</option>
+							 						<option value="4">175-180</option>
+							 						<option value="5">180+</option>
+							 					</select>
+							 				</span>
 										 </td>		
 								    </tr>
 									<tr>
 										 <td>
 						                     <label for="mateEducation"><span style="color:red">*</span>学历:</label>
-						                     <span > <input type="text" id="mateEducation" name="mateEducation"> </span>
+						                     <span>
+						                     	<select id="mateEducation" name="mateEducation">
+							 						<option value="0">无</option>
+							 						<option value="1">小学</option>
+							 						<option value="2">初中</option>
+							 						<option value="3">高中</option>
+							 						<option value="4">大专</option>
+							 						<option value="5">专科</option>
+							 						<option value="6">本科</option>
+							 						<option value="7">硕士</option>
+							 						<option value="8">博士</option>
+							 					</select>
+							 				</span>
 										 </td>
 										 <td>
 										 	<label for="mateIncomeLevel"><span style="color:red">*</span>月收入情况:</label>
-						                    <span> <input type="text" id="mateIncomeLevel" name="mateIncomeLevel" > </span>
+						                    <span> 
+						                     	<select id="mateIncomeLevel" name="mateIncomeLevel">
+							 						<option value="0">2000及以下</option>
+							 						<option value="1">2001——10000</option>
+							 						<option value="2">10000及以上</option>
+							 					</select>
+							 				</span>
 										 </td>		
 								    </tr>
 									<tr>
 										 <td>
 						                     <label for="mateMaritalStatus"><span style="color:red">*</span>婚姻状况:</label>
-						                     <span > <input type="text" id="mateMaritalStatus" name="mateMaritalStatus"> </span>
+						                     <span>
+						                     	<select id="mateMaritalStatus" name="mateMaritalStatus">
+							 						<option value="unmarried">未婚</option>
+							 						<option value="remarried">离异</option>
+							 					</select>
+							 				 </span>
 										 </td>
 										 <td>
 										 	<label for="mateHaveChildren"><span style="color:red">*</span>子女状况:</label>
-						                    <span> <input type="text" id="mateHaveChildren" name="mateHaveChildren" > </span>
+						                    <span>
+						                     	<select id="mateHaveChildren" name="mateHaveChildren">
+							 						<option value="no">无</option>
+							 						<option value="yes">有</option>
+							 					</select>
+							 				 </span>
 										 </td>		
 								     </tr>
 									<tr>
 										 <td>
 						                     <label for="mateHaveCar"><span style="color:red">*</span>购车情况:</label>
-						                     <span > <input type="text" id="mateHaveCar" name="mateHaveCar"> </span>
+						                     <span>
+						                     	<select id="mateHaveCar" name="mateHaveCar">
+							 						<option value="no">无</option>
+							 						<option value="yes">有</option>
+							 					</select>
+							 				 </span>
 										 </td>
 										 <td>
 										 	<label for="mateHaveHome"><span style="color:red">*</span>购房情况:</label>
-						                    <span> <input type="text" id="mateHaveHome" name="mateHaveHome" > </span>
+						                    <span>
+						                     	<select id="mateHaveHome" name="mateHaveHome">
+							 						<option value="no">无</option>
+							 						<option value="yes">有</option>
+							 					</select>
+							 				 </span>
 										 </td>		
 								     </tr>
 								     <tr>
 										 <td>
 						                     <label for="provinceName"><span style="color:red">*</span>省:</label>
-						                     <span > <input type="text" id="provinceName" name="provinceName"> </span>
+						                     <span>
+						                     	<select id="provinceID" name="provinceID">
+							 						<option value=""></option>
+							 					</select>
+							 				 </span>
+						                     <input type="hidden" id="provinceName" name="provinceName" >
 										 </td>
 										 <td>
 										 	<label for="cityName"><span style="color:red">*</span>市:</label>
-						                    <span> <input type="text" id="cityName" name="cityName" > </span>
+										 	<span>
+						                     	<select id="cityID" name="cityID">
+							 						<option value=""></option>
+							 					</select>
+							 				 </span>
+						                    <input type="hidden" id="cityName" name="cityName" >
 										 </td>		
 								     </tr>
 								     <tr>
 										 <td>
 						                     <label for="countyName"><span style="color:red">*</span>区/县:</label>
-						                     <span > <input type="text" id="countyName" name="countyName"> </span>
+						                     <span>
+						                     	<select id="countyID" name="countyID">
+							 						<option value=""></option>
+							 					</select>
+							 				 </span>
+						                     <input type="hidden" id="countyName" name="countyName">
 										 </td>
 										 <td>
 										 	<label for="townName"><span style="color:red">*</span>乡/街道:</label>
-						                    <span> <input type="text" id="townName" name="townName" > </span>
+										 	<span>
+						                     	<select id="townID" name="townID">
+							 						<option value=""></option>
+							 					</select>
+							 				 </span>
+						                     <input type="hidden" id="townName" name="townName" >
 										 </td>		
 								     </tr>
-									<tr>
+									 <tr>
 									     <td>
-									        <label  for="theNode_mate" style="position:relative; top:-48px; height: 200px;">备注:</label>
-										    <textarea id="theNode_mate" name="theNode_mate" maxlength="255" style="height: 200px;"></textarea>
+									        <label  for="theNode" style="position:relative; top:-48px; height: 200px;">备注:</label>
+										    <textarea id="theNode" name="theNode" maxlength="255" style="height: 200px;"></textarea>
 										 </td>						      
 									     <td>
 									     </td>
