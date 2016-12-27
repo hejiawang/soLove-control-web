@@ -2,6 +2,8 @@ var soLove = soLove || {};
 
 /**
  * 用户管理
+ * 
+ * @author HeJiawang
  * @date 2016.12.23
  */
 soLove.userManager = {
@@ -529,18 +531,42 @@ soLove.userManager = {
 			var htmlStr = "";
 			for( var i=0, i< data.length, i++ ){
 				var hobby = data[i];
-				htmlStr +=	' <tr id="hobby_'+hobby.hobbyID+'"> '+
+				
+				var url = soLove.domainUrl.baseDomain + '/userInfo/hobby/allHobby';
+				var optionHtml = '';
+				$.ajax({
+					url : url,
+					data : { },
+					type: "get",
+					dataType : 'json',
+					success: function( result ){
+						if(result.success){
+							var dataAll = result.result;
+							for( var i=0; i<dataAll.length; i++ ){
+								var hobbyAll = dataAll[i];
+								if( hobby.hobbyID == hobbyAll.hobbyID ){ //用户已经选过的兴趣爱好，设为已选中属性
+									optionHtml += '<option vaule="'+hobbyAll.hobbyID+'" select="delect">'+hobbyAll.content+'</option>';
+								} else {
+									optionHtml += '<option vaule="'+hobbyAll.hobbyID+'">'+hobbyAll.content+'</option>';
+								}
+							}
+							
+							htmlStr +=	' <tr id="hobby_'+hobby.hobbyID+'"> '+
 							' 	<td> '+ 
 							' 		<label style="text-align:left;"><button onclick="soLove.userManager.userView.js_deleteHobby("hobby_'+hobby.hobbyID+'")" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >删除信息</button></label> '+
 							' 		<span> '+
-							' 			<select name="content"> '+
-							' 				<option value="'+hobby.hobbyID+'">'+hobby.content+'</option> '+
+							' 			<select name="hobbyID"> '+
+											optionHtml +
 							' 			</select> '+
 							' 		</span> '+
 							' 	</td>  '+
-					 		' </tr> ';
+							' </tr> ';
+							
+							$("#hobbyInfo-table").html(htmlStr);
+						}
+					}
+				});
 			}
-			$("#hobbyInfo-table").html(htmlStr);
 		},
 		
 		/**
@@ -548,14 +574,43 @@ soLove.userManager = {
 		 */
 		js_deleteHobby	:	function( hobby_hobbyID ){
 			$("#" + hobby_hobbyID).remove();
-		}
+		},
 		
 		/**
 		 * 新增用户兴趣爱好的选择框
 		 */
 		js_raiseHobby	:	function(){
-			
-		}
+			var url = soLove.domainUrl.baseDomain + '/userInfo/hobby/allHobby';
+			$.ajax({
+				url : url,
+				data : { },
+				type: "get",
+				dataType : 'json',
+				success: function( result ){
+					if(result.success){
+						var data = result.result;
+						var optionHtml = '';
+						for( var i=0; i<data.length; i++ ){
+							var hobby = data[i];
+							optionHtml += '<option vaule="'+hobby.hobbyID+'">'+hobby.content+'</option>';
+						}
+						
+						var dateNum = new Date();
+						htmlStr +=	' <tr id="hobby_'+ dateNum +'"> '+
+									' 	<td> '+ 
+									' 		<label style="text-align:left;"><button onclick="soLove.userManager.userView.js_deleteHobby("hobby_' + dateNum + '")" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >删除信息</button></label> '+
+									' 		<span> '+
+									' 			<select name="hobbyID"> '+
+													optionHtml +
+									' 			</select> '+
+									' 		</span> '+
+									' 	</td>  '+
+									' </tr> ';
+						$("#hobbyInfo-table").append(htmlStr);
+					}
+				}
+			});
+		},
 		
 		/**
 		 * 查看用户父母信息
@@ -564,6 +619,14 @@ soLove.userManager = {
 			var htmlStr = "";
 			for( var i=0, i< data.length, i++ ){
 				var parent = data[i];
+				
+				var oprionHtml = "";
+				if( parent.parentRelation == 'man' ){
+					oprionHtml = '<option value="man" select="select">父亲</option><option value="woman">母亲</option>';
+				} else {
+					oprionHtml = '<option value="man">父亲</option><option value="woman" select="select">母亲</option>';
+				}
+				
 				htmlStr +=' '+
 				' <div id="parent_'+parent.parentID+'"> '+
 				' 	<tr> '+
@@ -571,8 +634,7 @@ soLove.userManager = {
 				' 			<label><span style="color:red">*</span>关系:</label> '+
 				' 			<span> '+
 				' 				<select name="parentRelation"> '+
-				' 					<option value="man">父亲</option> '+
-				' 					<option value="woman">母亲</option> '+
+									oprionHtml +
 				' 				</select> '+
 				' 			</span> '+
 				' 		</td> '+
@@ -611,7 +673,40 @@ soLove.userManager = {
 		 * 新增用户父母信息的选择框
 		 */
 		js_raiseParent	:	function(){
-			
+			var dateNum = new Date();
+			htmlStr +=' '+
+			' <div id="parent_'+dateNum+'"> '+
+			' 	<tr> '+
+			' 		<td > '+ 
+			' 			<label><span style="color:red">*</span>关系:</label> '+
+			' 			<span> '+
+			' 				<select name="parentRelation"> '+
+			' 					<option value="man">父亲</option> '+
+			' 					<option value="woman">母亲</option> '+
+			' 				</select> '+
+			' 			</span> '+
+			' 		</td> '+
+			' 	</tr> '+
+			' 	<tr> '+
+			' 		<td> '+
+			'        	<label><span style="color:red">*</span>年龄:</label> '+
+			'         	<span > <input type="text" name="parentAge" > </span> '+
+			' 		</td> '+
+			' 	</tr> '+
+			' 	<tr style="height: 200px;"> '+
+			' 		<td style="height: 200px;"> '+
+			' 	        <label style="position:relative; top:-180px; ">简介:</label> '+
+			' 			<textarea name="parentRecommend" maxlength="255" style="height: 200px;" ></textarea> '+
+			' 	    </td> '+
+			' 	</tr> '+
+			' 	<tr> '+
+			' 		<td> '+
+			' 			<label></label> '+
+			' 			<span><button onclick="soLove.userManager.userView.js_deleteParent("parent_'+dateNum+'")" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >删除信息</button></span> '+
+			' 		</td> '+
+			' 	</tr> '+
+			' </div> ';
+			$("#parentInfo-table").append(htmlStr);
 		},
 		
 		/**
@@ -621,6 +716,14 @@ soLove.userManager = {
 			var htmlStr = "";
 			for( var i=0, i< data.length, i++ ){
 				var children = data[i];
+				
+				var oprionHtml = "";
+				if( children.parentRelation == 'man' ){
+					oprionHtml = '<option value="man" select="select">儿子</option><option value="woman">女儿</option>';
+				} else {
+					oprionHtml = '<option value="man">儿子</option><option value="woman" select="select">女儿</option>';
+				}
+				
 				htmlStr +=' '+
 				' <div id="parent_'+children.childrenID+'"> '+
 				' 	<tr> '+
@@ -628,8 +731,7 @@ soLove.userManager = {
 				' 			<label><span style="color:red">*</span>关系:</label> '+
 				' 			<span> '+
 				' 				<select name="parentRelation"> '+
-				' 					<option value="man">父亲</option> '+
-				' 					<option value="woman">母亲</option> '+
+									oprionHtml+
 				' 				</select> '+
 				' 			</span> '+
 				' 		</td> '+
@@ -668,7 +770,41 @@ soLove.userManager = {
 		 * 新增用户父母信息的选择框
 		 */
 		js_raiseChildren	:	function(){
+			var dateNum = new Date();
 			
+			htmlStr +=' '+
+			' <div id="parent_'+dateNum+'"> '+
+			' 	<tr> '+
+			' 		<td > '+ 
+			' 			<label><span style="color:red">*</span>关系:</label> '+
+			' 			<span> '+
+			' 				<select name="parentRelation"> '+
+			' 					<option value="man">父亲</option> '+
+			' 					<option value="woman">母亲</option> '+
+			' 				</select> '+
+			' 			</span> '+
+			' 		</td> '+
+			' 	</tr> '+
+			' 	<tr> '+
+			' 		<td> '+
+			'        	<label><span style="color:red">*</span>年龄:</label> '+
+			'         	<span > <input type="text" name="parentAge"> </span> '+
+			' 		</td> '+
+			' 	</tr> '+
+			' 	<tr style="height: 200px;"> '+
+			' 		<td style="height: 200px;"> '+
+			' 	        <label style="position:relative; top:-180px; ">简介:</label> '+
+			' 			<textarea name="parentRecommend" maxlength="255" style="height: 200px;"></textarea> '+
+			' 	    </td> '+
+			' 	</tr> '+
+			' 	<tr> '+
+			' 		<td> '+
+			' 			<label></label> '+
+			' 			<span><button onclick="soLove.userManager.userView.js_deleteChildren("parent_'+dateNum+'")" class="btn btn-success btn-next" data-last="Finish" style="margin-bottom:15px; margin-left:15px;" >删除信息</button></span> '+
+			' 		</td> '+
+			' 	</tr> '+
+			' </div> ';
+			$("#childrenInfo-table").append(htmlStr);
 		},
 		
 		/**
@@ -696,7 +832,7 @@ soLove.userManager = {
 		 */
 		userViewClose	:	function(){
 			window.close();
-		}
+		},
 	},
 	
 	/**
@@ -757,7 +893,7 @@ soLove.userManager = {
 		 * 修改用户userInfo
 		 */
 		modifyUserInfo	:	function(){
-			var modifyUserInfoUrl = "";
+			var modifyUserInfoUrl = soLove.domainUrl.baseDomain + '/userInfo/baseInfo/modify';
 			$.ajax({
 				url : modifyUserInfoUrl,
 				data :  $("#baseInfo-form").serialize(),
@@ -775,7 +911,7 @@ soLove.userManager = {
 		 * 修改用户userDetail
 		 */
 		modifyUserDetail	:	function(){
-			var url = "";
+			var url = soLove.domainUrl.baseDomain + '/userInfo/detail/modify';
 			$.ajax({
 				url : url,
 				data :  $("#detailInfo-form").serialize(),
@@ -793,7 +929,7 @@ soLove.userManager = {
 		 * 修改用户userImg
 		 */
 		modifyUserImg	:	function(){
-			var url = "";
+			var url = soLove.domainUrl.baseDomain + '/userInfo/image/modify';
 			$.ajax({
 				url : url,
 				data :  $("#imgInfo-form").serialize(),
@@ -812,7 +948,7 @@ soLove.userManager = {
 		 * 传数组
 		 */
 		modifyUserHobby	:	function(){
-			var url = "";
+			var url = soLove.domainUrl.baseDomain + '/userInfo/hobby/modify';
 			$.ajax({
 				url : url,
 				data :  $("#hobbyInfo-form").serialize(),
@@ -830,7 +966,7 @@ soLove.userManager = {
 		 * 修改用户userParent
 		 */
 		modifyUserParent	:	function(){
-			var url = "";
+			var url = soLove.domainUrl.baseDomain + '/userInfo/parent/modifyUserParent';
 			$.ajax({
 				url : url,
 				data :  $("#parentInfo-form").serialize(),

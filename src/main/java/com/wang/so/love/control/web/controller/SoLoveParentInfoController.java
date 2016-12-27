@@ -1,5 +1,6 @@
 package com.wang.so.love.control.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wang.core.ServiceResult;
@@ -129,6 +131,38 @@ public class SoLoveParentInfoController extends BaseController {
 			result = SoLoveParentInfoService.getParentInfoByUserID(userID);
 		}catch(Exception e){
 			logger.error("异常发生在"+this.getClass().getName()+"类的getParentInfoByUserID方法，异常原因是："+e.getMessage(), e.fillInStackTrace());
+		}
+		return result;
+	}
+	
+	/**
+	 * 修改用户父母信息
+	 * 
+	 * @return ServiceResult
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.27
+	 */
+	@RequestMapping(value = "/modifyUserParent", method = {RequestMethod.POST})
+	@ResponseBody
+	public ServiceResult<Void> modifyUserParent( HttpServletRequest request,Integer userID,
+			@RequestParam("parentRelation[]")List<String> parentRelations,
+			@RequestParam("parentAge[]")List<Integer> parentAges,
+			@RequestParam("parentRecommend[]")List<String> parentRecommends){
+		ServiceResult<Void> result = new ServiceResult<Void>();
+		try{
+			List<SoLoveParentInfoParam> parentInfoList = new ArrayList<SoLoveParentInfoParam>();
+			for( int i=0; i<parentRelations.size(); i++ ){
+				SoLoveParentInfoParam parentInfo = new SoLoveParentInfoParam();
+				parentInfo.setUserID(userID);
+				parentInfo.setParentAge(parentAges.get(i));
+				parentInfo.setParentRelation(parentRelations.get(i));
+				parentInfo.setParentRecommend(parentRecommends.get(i));
+				parentInfoList.add(parentInfo);
+			}
+			result = SoLoveParentInfoService.modifyUserParent(parentInfoList, userID);
+		}catch(Exception e){
+			logger.error("异常发生在"+this.getClass().getName()+"类的modifyParentInfo方法，异常原因是："+e.getMessage(), e.fillInStackTrace());
 		}
 		return result;
 	}
