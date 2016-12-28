@@ -1,5 +1,6 @@
 package com.wang.so.love.control.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wang.core.ServiceResult;
@@ -129,6 +131,38 @@ public class SoLoveChildrenInfoController extends BaseController {
 			result = SoLoveChildrenInfoService.getChildrenInfoByUserID(userID);
 		}catch(Exception e){
 			logger.error("异常发生在"+this.getClass().getName()+"类的getChildrenInfoByUserID方法，异常原因是："+e.getMessage(), e.fillInStackTrace());
+		}
+		return result;
+	}
+	
+	/**
+	 * 修改用户子女信息
+	 * 
+	 * @return ServiceResult
+	 * 
+	 * @author HeJiawang
+	 * @date   2016.12.28
+	 */
+	@RequestMapping(value = "/modifyUserChildren", method = {RequestMethod.POST})
+	@ResponseBody
+	public ServiceResult<Void> modifyUserChildren( HttpServletRequest request,Integer userID,
+			@RequestParam("childrenRelation[]")List<String> childrenRelations,
+			@RequestParam("childrenAge[]")List<Integer> childrenAges,
+			@RequestParam("childrenRecommend[]")List<String> childrenRecommends){
+		ServiceResult<Void> result = new ServiceResult<Void>();
+		try{
+			List<SoLoveChildrenInfoParam> childrenInfoList = new ArrayList<SoLoveChildrenInfoParam>();
+			for( int i=0; i<childrenRelations.size(); i++ ){
+				SoLoveChildrenInfoParam childrenInfo = new SoLoveChildrenInfoParam();
+				childrenInfo.setUserID(userID);
+				childrenInfo.setChildrenAge(childrenAges.get(i));
+				childrenInfo.setChildrenRelation(childrenRelations.get(i));
+				childrenInfo.setChildrenRecommend(childrenRecommends.get(i));
+				childrenInfoList.add(childrenInfo);
+			}
+			result = SoLoveChildrenInfoService.modifyUserChildren(childrenInfoList, userID);
+		}catch(Exception e){
+			logger.error("异常发生在"+this.getClass().getName()+"类的modifyUserChildren方法，异常原因是："+e.getMessage(), e.fillInStackTrace());
 		}
 		return result;
 	}

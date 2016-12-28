@@ -34,6 +34,7 @@ soLove.userManager = {
 		var _that = this;
 		
 		_that.initMenuResource();
+		_that.initDatepicker();
 		_that.initTable();
 	},
 	
@@ -53,6 +54,26 @@ soLove.userManager = {
 			success:function(result) {
 				$("#elementbut").html(result.result);
 			}
+		});
+	},
+	
+	/**
+	 * 初始化时间控件
+	 */
+	initDatepicker	:	function(){
+		$("#member_beginDate").datepicker({
+			showOtherMonths: true,
+			selectOtherMonths: false,			
+			changeMonth: true,
+			changeYear: true,
+			autoclose:true
+		});
+		$("#member_endDate").datepicker({
+			showOtherMonths: true,
+			selectOtherMonths: false,			
+			changeMonth: true,
+			changeYear: true,
+			autoclose:true
 		});
 	},
 	
@@ -388,37 +409,102 @@ soLove.userManager = {
 		 });
 	},
 	
+	/**
+	 * 新开通会员
+	 */
+	raiseMember	:	function(){
+		var _that = this;
+		
+		$("#member_memberLevel").val("");
+		$("#member_memberMoney").val("");
+		$("#member_beginDate").val(new Date());
+		$("#member_endDate").val(new Date());
+		
+		$("#dialog-message").removeClass('hide').dialog({
+			 modal: true,
+		     title: "新开通会员",
+		     title_html: true,
+			 width:600,
+		     buttons: [ {
+					text: "确定",
+					"class" : "btn btn-primary btn-xs",
+					click: function() {
+						var goRaiseUrl = soLove.domainUrl.baseDomain + '/userInfo/member/raise';
+						$.ajax({
+							url : goRaiseUrl,
+							data : $("#raiseMember-form").serialize(),
+							type: "post",
+							dataType : 'json',
+							success: function( result ){
+								layer.msg(result.message);
+
+								if(result.success){
+									$( this ).dialog( "close" ); 
+									
+									var table = $('#example').DataTable();
+									table.ajax.url(_that.common.myurl + '/page').load();
+								}
+							}
+						});
+					} 
+				},
+				{
+					text: "关闭",
+					"class" : "btn btn-primary btn-xs",
+					click: function() {
+						$( this ).dialog( "close" ); 
+					} 
+				}]
+		 });
+	},
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/**
+	 * 会员信息查看
+	 */
+	viewMember	:	function(){
+		var _that = this;
+		var userID = _that.goCheck();
+		if( userID != 0 ){
+			
+			$("#dialog-message").removeClass('hide').dialog({
+				modal: true,
+				title: "查看会员",
+				title_html: true,
+				width:600,
+				buttons: [ {
+					text: "确定",
+					"class" : "btn btn-primary btn-xs",
+					click: function() {
+						var url = soLove.domainUrl.baseDomain + '/userInfo/member/view';
+						$.ajax({
+							url : url,
+							data : {
+								'userID':userID
+							},
+							type: "get",
+							dataType : 'json',
+							success: function( result ){
+								if(result.success){
+									var data = result.result;
+									$("#member_memberLevel").val(data.memberLevel);
+									$("#member_memberMoney").val(data.memberMoney);
+									$("#member_beginDate").val(data.beginDate);
+									$("#member_endDate").val(data.endDate);
+								}
+							}
+						});
+					} 
+				},
+				{
+					text: "关闭",
+					"class" : "btn btn-primary btn-xs",
+					click: function() {
+						$( this ).dialog( "close" ); 
+					} 
+				}]
+			});
+		}
+	},
 	
 	/**
 	 * 查看用户信息
@@ -984,7 +1070,7 @@ soLove.userManager = {
 		 * 修改用户userChildren
 		 */
 		modifyUserChildren	:	function(){
-			var url = "";
+			var url = soLove.domainUrl.baseDomain + '/userInfo/children/modifyUserChildren';
 			$.ajax({
 				url : url,
 				data :  $("#childrenInfo-form").serialize(),
@@ -1003,7 +1089,7 @@ soLove.userManager = {
 		 * 提示修改用户信息成功,关闭修改页面，执行用户管理页的查询方法
 		 */
 		modifyUserMate	:	function(){
-			var url = "";
+			var url = soLove.domainUrl.baseDomain + '/userInfo/mate/modify';
 			$.ajax({
 				url : url,
 				data :  $("#mateInfo-form").serialize(),

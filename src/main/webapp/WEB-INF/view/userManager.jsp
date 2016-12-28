@@ -137,6 +137,7 @@
 				</div>
 				
 				<!-- 隐藏的弹出框 -->
+				<!-- 新增用户 -->
 				<div id="raiseUser-dialog"  class="hide">
 					<form  class="form-horizontal" id="raiseUser-form" role="form" action="">
 						<div class="form-group">
@@ -155,6 +156,52 @@
 								<div class="clearfix">
 									<input type="text" id="passWord" name="passWord" value="123456" class="col-xs-10 col-sm-3" />
 									<span for="passWord" class="help-block" style="color:red;display:none;" id="passWordSpan">手机号重复!</span>
+								</div>	
+							</div>
+						</div>
+						<div class="space-2"></div>
+					</form>
+				</div>
+				
+				<!-- 新开通会员 -->
+				<div id="raiseMember-dialog" class="hide">
+					<form  class="form-horizontal" id="raiseMember-form" role="form" action="">
+						<div class="form-group">
+							<label class="control-label col-xs-12 col-sm-3  no-padding-right" for="member_memberLevel"><span style="color:red">*</span>会员等级:</label>
+							<div class="col-sm-9">
+								<div class="clearfix">
+									<input type="text" id="member_memberLevel" name="memberLevel"  class="col-xs-10 col-sm-3" />
+									<span for="member_memberLevel" class="help-block" style="color:red;display:none;" id="memberLevelSpan"></span>
+								</div>	
+							</div>
+						</div>
+						<div class="space-2"></div>
+						<div class="form-group">
+							<label class="control-label col-xs-12 col-sm-3  no-padding-right" for="member_memberMoney"><span style="color:red">*</span>会员费用:</label>
+							<div class="col-sm-9">
+								<div class="clearfix">
+									<input type="text" id="member_memberMoney" name="memberMoney"  class="col-xs-10 col-sm-3" />
+									<span for="member_memberMoney" class="help-block" style="color:red;display:none;" id="memberMoneySpan"></span>
+								</div>	
+							</div>
+						</div>
+						<div class="space-2"></div>
+						<div class="form-group">
+							<label class="control-label col-xs-12 col-sm-3  no-padding-right" for="member_beginDate"><span style="color:red">*</span>开启时间:</label>
+							<div class="col-sm-9">
+								<div class="clearfix">
+									<input type="text" id="member_beginDate" name="beginDate"  class="col-xs-10 col-sm-3" />
+									<span for="member_beginDate" class="help-block" style="color:red;display:none;" id="beginDateSpan"></span>
+								</div>	
+							</div>
+						</div>
+						<div class="space-2"></div>
+						<div class="form-group">
+							<label class="control-label col-xs-12 col-sm-3  no-padding-right" for="member_endDate"><span style="color:red">*</span>结束时间:</label>
+							<div class="col-sm-9">
+								<div class="clearfix">
+									<input type="text" id="member_endDate" name="endDate"  class="col-xs-10 col-sm-3" />
+									<span for="member_endDate" class="help-block" style="color:red;display:none;" id="endDateSpan"></span>
 								</div>	
 							</div>
 						</div>
