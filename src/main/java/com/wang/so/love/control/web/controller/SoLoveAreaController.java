@@ -90,7 +90,7 @@ public class SoLoveAreaController extends BaseController {
 	 * @author HeJiawang
 	 * @date   2016.12.29
 	 */
-	@RequestMapping(value="/erase",method=RequestMethod.GET)
+	@RequestMapping(value="/erase",method=RequestMethod.POST)
 	@ResponseBody
 	public ServiceResult<Void> earseArea( Integer areaID ){
 		ServiceResult<Void> result = new ServiceResult<Void>();
@@ -111,7 +111,7 @@ public class SoLoveAreaController extends BaseController {
 	 * @author HeJiawang
 	 * @date   2016.12.29
 	 */
-	@RequestMapping(value="/raise",method=RequestMethod.GET)
+	@RequestMapping(value="/raise",method=RequestMethod.POST)
 	@ResponseBody
 	public ServiceResult<Void> raiseArea( SoLoveAreaParam area ){
 		ServiceResult<Void> result = new ServiceResult<Void>();
@@ -132,7 +132,7 @@ public class SoLoveAreaController extends BaseController {
 	 * @author HeJiawang
 	 * @date   2016.12.29
 	 */
-	@RequestMapping(value="/modify",method=RequestMethod.GET)
+	@RequestMapping(value="/modify",method=RequestMethod.POST)
 	@ResponseBody
 	public ServiceResult<Void> modifyArea( SoLoveAreaParam area ){
 		ServiceResult<Void> result = new ServiceResult<Void>();
