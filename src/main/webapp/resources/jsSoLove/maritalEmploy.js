@@ -1,12 +1,12 @@
 var soLove = soLove || {};
 
 /**
- * 婚介所管理
+ * 婚介所老师信息管理
  * 
  * @author HeJiawang
- * @date 2016.12.30
+ * @date 2014.01.03
  */
-soLove.maritalAgency = {
+soLove.maritalEmploy = {
 	
 	/**
 	 * 消息
@@ -19,12 +19,22 @@ soLove.maritalAgency = {
 		/**
 		 * url
 		 */
-		myurl	:	soLove.domainUrl.baseDomain + '/maritalAgency',
+		myurl	:	soLove.domainUrl.baseDomain + '/maritalEmploy',
+		
+		/**
+		 * maritalAgencyUrl
+		 */
+		maritalAgencyUrl	:	soLove.domainUrl.baseDomain + '/maritalAgency',
 		
 		/**
 		 * 系统类型列表选中项
 		 */
 		tableRowDateObj	: Object,
+		
+		/**
+		 * 系统类型列表选中项
+		 */
+		tableRowDateObj	: Object_agency,
 		
 		/**
 		 * 表单验证
@@ -33,56 +43,68 @@ soLove.maritalAgency = {
 			errorElement: 'div',
 			errorClass: 'help-block',
 			rules: {
-				maritalAgencyName:{
+				maritalAgencyID	:{
 					required: true,
 				},
-				maritalAgencyLogo:{
+				maritalEmploySex:{
 					required: true,
 				},
-				maritalAgencyPhone:{
+				maritalEmployAge:{
 					required: true,
 				},
-				maritalAgencyDetail:{
+				maritalEmployName:{
 					required: true,
 				},
-				provinceID:{
+				maritalEmployNick:{
 					required: true,
 				},
-				cityID:{
+				maritalEmployPhone:{
 					required: true,
 				},
-				countyID:{
+				maritalEmployQQ:{
 					required: true,
 				},
-				townID:{
+				maritalEmployWeixin:{
+					required: true,
+				},
+				sort:{
+					required: true,
+				},
+				maritalEmployEvaluation:{
 					required: true,
 				},
 			},
 	
 			messages: {
-				maritalAgencyName:{
+				maritalAgencyID	:{
 					required: "必填",
 				},
-				maritalAgencyLogo:{
+				maritalEmploySex:{
+					required: "必填",
+				},
+				maritalEmployAge:{
 					required:  "必填",
 				},
-				maritalAgencyPhone:{
+				maritalEmployName:{
 					required:  "必填",
 				},
-				maritalAgencyDetail:{
+				maritalEmployNick:{
 					required:  "必填",
 				},
-				provinceID:{
+				maritalEmployPhone:{
 					required:  "必填",
 				},
-				cityID:{
+				maritalEmployQQ:{
 					required:  "必填",
 				},
-				countyID:{
+				maritalEmployWeixin:{
 					required:  "必填",
 				},
-				townID:{
+				sort:{
 					required:  "必填",
+				},
+				maritalEmployEvaluation:{
+					required: "必填",
 				},
 			},
 	
@@ -109,6 +131,7 @@ soLove.maritalAgency = {
 		
 		_that.initMenuResource();
 		_that.initTable();
+		_that.initTable_agency();
 	},
 	
 	/**
@@ -148,7 +171,7 @@ soLove.maritalAgency = {
 			},
 			"columns" : [
 				{
-					"data" : "maritalAgencyID",
+					"data" : "maritalEmployID",
 					"orderable" : false,
 					"visible" : true,
 					"width" : "5%",
@@ -157,113 +180,75 @@ soLove.maritalAgency = {
 					},
 				}, 
 				{
+					"title" : "婚介ID",
+					"data" : "maritalAgencyID",
+					"visible" : false,
+					"orderable" : false,
+				}, 
+				{
 					"title" : "婚介名称",
 					"data" : "maritalAgencyName",
 					"visible" : true,
 					"orderable" : false,
 				}, 
 				{
-					"title" : "婚介log",
-					"data" : "maritalAgencyLogo",
+					"title" : "性别",
+					"data" : "maritalEmploySex",
 					"visible" : true,
 					"orderable" : false,
 				}, 
 				{
-					"title" : "联系方式",
-					"data" : "maritalAgencyPhone",
+					"title" : "年龄",
+					"data" : "maritalEmployAge",
 					"visible" : true,
 					"orderable" : false,
 				}, 
+				{
+					"title" : "姓名",
+					"data" : "maritalEmployName",
+					"visible" : true,
+					"orderable" : false,
+				}, 
+				{
+					"title" : "昵称",
+					"data" : "maritalEmployNick",
+					"visible" : true,
+					"orderable" : false,
+				}, 
+				{
+					"title" : "手机",
+					"data" : "maritalEmployPhone",
+					"visible" : true,
+					"orderable" : false,
+				},
+				{
+					"title" : "QQ",
+					"data" : "maritalEmployQQ",
+					"visible" : true,
+					"orderable" : false,
+				},
+				{
+					"title" : "微信",
+					"data" : "maritalEmployWeixin",
+					"visible" : true,
+					"orderable" : false,
+				},
+				{
+					"title" : "排序",
+					"data" : "sort",
+					"visible" : true,
+					"orderable" : false,
+				},
 				{
 					"title" : "简介",
-					"data" : "maritalAgencyDetail",
+					"data" : "maritalEmployEvaluation",
 					"visible" : true,
 					"orderable" : false,
-				}, 
-				{
-					"title" : "地址",
-					"data" : "areaName",
-					"visible" : true,
-					"orderable" : false,
-					"render" : function(data, type, full, meta) {
-						var areaStr = "";
-						if( full.provinceName != null ){
-							areaStr += full.provinceName;
-						} 
-						if( full.cityName != null ){
-							areaStr += full.cityName;
-						}
-						if( full.countyName != null ){
-							areaStr += full.countyName;
-						}
-						if( full.townName != null ){
-							areaStr += full.townName;
-						}
-						if( full.areaName != null ){
-							areaStr += full.areaName;
-						}
-						
-						return areaStr;
-					},
-				}, 
+				},
 				{
 					"title" : "备注",
 					"data" : "theNode",
 					"visible" : true,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "provinceID",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "provinceName",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "cityID",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "cityName",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "countyID",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "countyName",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "townID",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "townName",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "areaName",
-					"visible" : false,
 					"orderable" : false,
 				}
 			],
@@ -368,6 +353,8 @@ soLove.maritalAgency = {
 		var _that = this;
 		
 		var table = $('#example').DataTable();
+		$("#maritalEmployNameSerch").val("");
+		$("#maritalEmployNickSerch").val("");
 		$("#maritalAgencyNameSerch").val("");
 		table.ajax.url( _that.common.myurl+"/page").load();
 	},
@@ -379,44 +366,45 @@ soLove.maritalAgency = {
 		var _that = this;
 		
 		var table = $('#example').DataTable();
+		var maritalEmployName = $("#maritalEmployNameSerch").val();
+		var maritalEmployNick = $("#maritalEmployNickSerch").val();
 		var maritalAgencyName = $("#maritalAgencyNameSerch").val();
-		table.ajax.url( _that.common.myurl+"/page?maritalAgencyName=" + maritalAgencyName ).load();
+		table.ajax.url( _that.common.myurl+"/page?maritalEmployName=" + maritalEmployName + 
+				"&maritalEmployNick="+maritalEmployNick + "&maritalAgencyName=" + maritalAgencyName ).load();
 	},
 	
 	/**
-	 * 新增婚介所
+	 * 新增婚介所老师
 	 */
 	goRaise	:	function(){
 		var _that = this;
 		
-		$("#raiseMaritalAgency-form input").each(function(index){
+		$("#raiseMaritalEmploy-form input").each(function(index){
             $(this).removeAttr("disabled" ,"" );
         });
-        $( "#raiseMaritalAgency-form textarea").each(function(index){
+        $( "#raiseMaritalEmploy-form textarea").each(function(index){
             $(this).removeAttr("disabled" ,"" );
         });
-		$("#raiseMaritalAgency-form .help-block").css("display","none");
-	 	$("#raiseMaritalAgency-form .form-group").removeClass('has-error').addClass('has-info');
+		$("#raiseMaritalEmploy-form .help-block").css("display","none");
+	 	$("#raiseMaritalEmploy-form .form-group").removeClass('has-error').addClass('has-info');
 
-	 	$("#maritalAgencyID").val("");
+	 	$("#maritalEmployID").val("");
 		$("#maritalAgencyName").val("");
-		$("#maritalAgencyLogo").val("");
-		$("#maritalAgencyPhone").val("");
-		$("#maritalAgencyDetail").val("");
-		$("#provinceID").val("");
-		$("#provinceName").val("");
-		$("#cityID").val("");
-		$("#cityName").val("");
-		$("#countyID").val("");
-		$("#countyName").val("");
-		$("#townID").val("");
-		$("#townName").val("");
-		$("#areaName").val("");
+		$("#maritalAgencyID").val("");
+		$("#maritalEmploySex").val("");
+		$("#maritalEmployAge").val("");
+		$("#maritalEmployName").val("");
+		$("#maritalEmployNick").val("");
+		$("#maritalEmployPhone").val("");
+		$("#maritalEmployQQ").val("");
+		$("#maritalEmployWeixin").val("");
+		$("#sort").val("");
+		$("#maritalEmployEvaluation").val("");
 		$("#theNode").val("");
 	 	
-		$("#raiseMaritalAgency-dialog" ).removeClass('hide').dialog({
+		$("#raiseMaritalEmploy-dialog" ).removeClass('hide').dialog({
 		     modal: true,
-		     title: "新增婚介所",
+		     title: "新增婚老师",
 		     title_html: true,
 		     width:500,
 		     buttons: [ 
@@ -432,10 +420,10 @@ soLove.maritalAgency = {
 		     			"class" : "btn btn-primary btn-xs",
 		     			click: function() {
 		     				var dg = $( this );
-						 	if($("#raiseMaritalAgency-form").valid()){
+						 	if($("#raiseMaritalEmploy-form").valid()){
 						 		$.ajax({
 									url :  _that.common.myurl + '/raise',
-									data : $("#raiseMaritalAgency-form").serialize(),
+									data : $("#raiseMaritalEmploy-form").serialize(),
 									type: "post",
 									dataType : 'json',
 									success: function(result){
@@ -454,42 +442,40 @@ soLove.maritalAgency = {
 	},
 	
 	/**
-	 * 修改婚介所信息
+	 * 修改婚介老师信息
 	 */
 	goModify	:	function(){
 		var _that = this;
 		
-		$("#raiseMaritalAgency-form .help-block").css("display","none");
-	 	$("#raiseMaritalAgency-form .form-group").removeClass('has-error').addClass('has-info');
+		$("#raiseMaritalEmploy-form .help-block").css("display","none");
+	 	$("#raiseMaritalEmploy-form .form-group").removeClass('has-error').addClass('has-info');
         
-        $("#raiseMaritalAgency-form input").each(function(index){
+        $("#raiseMaritalEmploy-form input").each(function(index){
             $(this).removeAttr("disabled" ,"" );
         });
-        $( "#raiseMaritalAgency-form textarea").each(function(index){
+        $( "#raiseMaritalEmploy-form textarea").each(function(index){
             $(this).removeAttr("disabled" ,"" );
         });
         
 		var count = _that.goCheck();
 		if(count>0){
-			$("#maritalAgencyID").val(_that.common.tableRowDateObj.maritalAgencyID);
+			$("#maritalEmployID").val(_that.common.tableRowDateObj.maritalEmployID);
 			$("#maritalAgencyName").val(_that.common.tableRowDateObj.maritalAgencyName);
-			$("#maritalAgencyLogo").val(_that.common.tableRowDateObj.maritalAgencyLogo);
-			$("#maritalAgencyPhone").val(_that.common.tableRowDateObj.maritalAgencyPhone);
-			$("#maritalAgencyDetail").val(_that.common.tableRowDateObj.maritalAgencyDetail);
-			$("#provinceID").val(_that.common.tableRowDateObj.provinceID);
-			$("#provinceName").val(_that.common.tableRowDateObj.provinceName);
-			$("#cityID").val(_that.common.tableRowDateObj.cityID);
-			$("#cityName").val(_that.common.tableRowDateObj.cityName);
-			$("#countyID").val(_that.common.tableRowDateObj.countyID);
-			$("#countyName").val(_that.common.tableRowDateObj.countyName);
-			$("#townID").val(_that.common.tableRowDateObj.townID);
-			$("#townName").val(_that.common.tableRowDateObj.townName);
-			$("#areaName").val(_that.common.tableRowDateObj.areaName);
+			$("#maritalAgencyID").val(_that.common.tableRowDateObj.maritalAgencyID);
+			$("#maritalEmploySex").val(_that.common.tableRowDateObj.maritalEmploySex);
+			$("#maritalEmployAge").val(_that.common.tableRowDateObj.maritalEmployAge);
+			$("#maritalEmployName").val(_that.common.tableRowDateObj.maritalEmployName);
+			$("#maritalEmployNick").val(_that.common.tableRowDateObj.maritalEmployNick);
+			$("#maritalEmployPhone").val(_that.common.tableRowDateObj.maritalEmployPhone);
+			$("#maritalEmployQQ").val(_that.common.tableRowDateObj.maritalEmployQQ);
+			$("#maritalEmployWeixin").val(_that.common.tableRowDateObj.maritalEmployWeixin);
+			$("#sort").val(_that.common.tableRowDateObj.sort);
+			$("#maritalEmployEvaluation").val(_that.common.tableRowDateObj.maritalEmployEvaluation);
 			$("#theNode").val(_that.common.tableRowDateObj.theNode);
-	 		
-			$("#raiseMaritalAgency-dialog" ).removeClass('hide').dialog({
+			
+			$("#raiseMaritalEmploy-dialog" ).removeClass('hide').dialog({
 			     modal: true,
-			     title: "修改婚介所信息",
+			     title: "修改婚介老师",
 			     title_html: true,
 			     width:500,
 			     buttons: [ 
@@ -506,10 +492,10 @@ soLove.maritalAgency = {
 			     			click: function() {
 			     				var dg = $( this );
 			     				
-							 	if($("#raiseMaritalAgency-form").valid()){
+							 	if($("#raiseMaritalEmploy-form").valid()){
 							 		$.ajax({
 										url :  _that.common.myurl + '/modify',
-										data : $("#raiseMaritalAgency-form").serialize(),
+										data : $("#raiseMaritalEmploy-form").serialize(),
 										type: "post",
 										dataType : 'json',
 										success: function(result){
@@ -532,35 +518,33 @@ soLove.maritalAgency = {
 	 * 婚介所信息查看
 	 */
 	goView	:	function(){
-		$("#raiseMaritalAgency-form .help-block").css("display","none");
-	 	$("#raiseMaritalAgency-form .form-group").removeClass('has-error').addClass('has-info');
-        $("#raiseMaritalAgency-form input").each(function(index){
+		$("#raiseMaritalEmploy-form .help-block").css("display","none");
+	 	$("#raiseMaritalEmploy-form .form-group").removeClass('has-error').addClass('has-info');
+        $("#raiseMaritalEmploy-form input").each(function(index){
             $(this).attr("disabled" ,"disabled" );
         });
-        $( "#raiseMaritalAgency-form textarea").each(function(index){
+        $( "#raiseMaritalEmploy-form textarea").each(function(index){
             $(this).attr("disabled" ,"disabled" );
         }); 
 		var count = _that.goCheck();
 		if(count>0){
-			$("#maritalAgencyID").val(_that.common.tableRowDateObj.maritalAgencyID);
+			$("#maritalEmployID").val(_that.common.tableRowDateObj.maritalEmployID);
 			$("#maritalAgencyName").val(_that.common.tableRowDateObj.maritalAgencyName);
-			$("#maritalAgencyLogo").val(_that.common.tableRowDateObj.maritalAgencyLogo);
-			$("#maritalAgencyPhone").val(_that.common.tableRowDateObj.maritalAgencyPhone);
-			$("#maritalAgencyDetail").val(_that.common.tableRowDateObj.maritalAgencyDetail);
-			$("#provinceID").val(_that.common.tableRowDateObj.provinceID);
-			$("#provinceName").val(_that.common.tableRowDateObj.provinceName);
-			$("#cityID").val(_that.common.tableRowDateObj.cityID);
-			$("#cityName").val(_that.common.tableRowDateObj.cityName);
-			$("#countyID").val(_that.common.tableRowDateObj.countyID);
-			$("#countyName").val(_that.common.tableRowDateObj.countyName);
-			$("#townID").val(_that.common.tableRowDateObj.townID);
-			$("#townName").val(_that.common.tableRowDateObj.townName);
-			$("#areaName").val(_that.common.tableRowDateObj.areaName);
+			$("#maritalAgencyID").val(_that.common.tableRowDateObj.maritalAgencyID);
+			$("#maritalEmploySex").val(_that.common.tableRowDateObj.maritalEmploySex);
+			$("#maritalEmployAge").val(_that.common.tableRowDateObj.maritalEmployAge);
+			$("#maritalEmployName").val(_that.common.tableRowDateObj.maritalEmployName);
+			$("#maritalEmployNick").val(_that.common.tableRowDateObj.maritalEmployNick);
+			$("#maritalEmployPhone").val(_that.common.tableRowDateObj.maritalEmployPhone);
+			$("#maritalEmployQQ").val(_that.common.tableRowDateObj.maritalEmployQQ);
+			$("#maritalEmployWeixin").val(_that.common.tableRowDateObj.maritalEmployWeixin);
+			$("#sort").val(_that.common.tableRowDateObj.sort);
+			$("#maritalEmployEvaluation").val(_that.common.tableRowDateObj.maritalEmployEvaluation);
 			$("#theNode").val(_that.common.tableRowDateObj.theNode);
 	 		
-	 		$("#raiseMaritalAgency-dialog" ).removeClass('hide').dialog({
+	 		$("#raiseMaritalEmploy-dialog" ).removeClass('hide').dialog({
 			     modal: true,
-			     title: "查看婚介所信息",
+			     title: "查看婚介老师信息",
 			     title_html: true,
 			     width:500,
 			     buttons: [ 
@@ -581,8 +565,8 @@ soLove.maritalAgency = {
 	 */
 	goEarse	:	function(){
 		var _that = this;
-		var maritalAgencyID = _that.goCheck();
-		if( maritalAgencyID != 0 ){
+		var maritalEmployID = _that.goCheck();
+		if( maritalEmployID != 0 ){
 			var goEraseUrl = _that.common.myurl + '/erase';
 			
 			layer.confirm('确认删除！', {
@@ -591,7 +575,7 @@ soLove.maritalAgency = {
 			}, function(){
 				$.ajax({
 					url : goEraseUrl,
-					data : {'maritalAgencyID':maritalAgencyID},
+					data : {'maritalEmployID':maritalEmployID},
 					type: "get",
 					dataType : 'json',
 					success:function(result) {
@@ -605,4 +589,13 @@ soLove.maritalAgency = {
 			});
 		}
 	},
+	
+	/**
+	 * 选择婚介老师所在的婚介所
+	 */
+	chooseMaritalAgency	:	function(){
+		
+	},
+	
+	
 }
