@@ -139,6 +139,18 @@
 				</div>
 				
 				<!-- 隐藏的弹出框 -->
+				<!-- 选择婚介所的隐藏框 -->
+				<div id="maritalAgency-dialog" class="hide">
+					<input class="input-sm" id="maritalAgencyNameSerch" name="maritalAgencyName"  placeholder="婚介所名称"   type="text">
+			        <input class="btn btn-info" type="button" value="检索" id="goSearch" onclick="soLove.maritalEmploy.goSearch_agency();" style="margin-left: 20px;"/>	
+			        <input class="btn btn-info" type="button" value="清空" id="goReset" onclick="soLove.maritalEmploy.goReset_agency();" style="margin-left: 20px;"/>
+					<div class="table-responsive" style="margin-top: 10px;">
+						<table id="example_agency" class="table table-striped table-bordered table-hover">
+						
+						</table>  
+					</div>
+				</div>
+				
 				<!-- 新增婚介所老师 -->
 				<div id="raiseMaritalEmploy-dialog"  class="hide">
 					<form  class="form-horizontal" id="raiseMaritalEmploy-form" role="form" action="">

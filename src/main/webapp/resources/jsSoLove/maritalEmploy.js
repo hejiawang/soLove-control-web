@@ -34,7 +34,7 @@ soLove.maritalEmploy = {
 		/**
 		 * 系统类型列表选中项
 		 */
-		tableRowDateObj	: Object_agency,
+		tableRowDateObj_agency	: Object,
 		
 		/**
 		 * 表单验证
@@ -594,8 +594,289 @@ soLove.maritalEmploy = {
 	 * 选择婚介老师所在的婚介所
 	 */
 	chooseMaritalAgency	:	function(){
-		
+		var dialogAgency= $("#maritalAgency-dialog" ).removeClass('hide').dialog({
+			modal: true,
+			title: "选择婚介所",
+			title_html: true,
+			width:800,
+			buttons: [ 
+				{
+					text: "取消",
+					"class" : "btn btn-primary btn-xs",
+					click: function() {
+						$(dialogAgency).dialog("close");
+					} 
+				},
+				{
+					text: "确认",
+					"class" : "btn btn-primary btn-xs",
+					click: function() {
+						var id = soLove.maritalEmploy.goCheck_agency();
+						if( id != 0 ){
+							
+							$("#maritalAgencyName").val(tableRowDateObj_agency.maritalAgencyName);
+							$("#maritalAgencyID").val(tableRowDateObj_agency.maritalAgencyID);
+							$(dialogAgency).dialog("close");
+						}
+					} 
+				}
+			]
+		});
 	},
 	
+//....婚介所表单..start....................................................//
+	/**
+	 * 初始化表单
+	 */
+	initTable_agency	:	function(){
+		var _that = this;
+		$('#example_agency').dataTable({
+			"processing" : true,
+			"serverSide" : true,
+			"ajax" : {
+				"url" : _that.common.maritalAgencyUrl + '/page',
+				"type" : "GET",
+			},
+			"dom" : 'rtilp',
+			"language" : {
+				"url" : "resources/i18n/Chinese.json"
+			},
+			"columns" : [
+				{
+					"data" : "maritalAgencyID",
+					"orderable" : false,
+					"visible" : true,
+					"width" : "5%",
+					"render" : function(data, type, full, meta) {
+						return '<input type="checkbox" name="selectID_agency" value="' + data + '"/>';
+					},
+				}, 
+				{
+					"title" : "婚介名称",
+					"data" : "maritalAgencyName",
+					"visible" : true,
+					"orderable" : false,
+				}, 
+				{
+					"title" : "婚介log",
+					"data" : "maritalAgencyLogo",
+					"visible" : true,
+					"orderable" : false,
+				}, 
+				{
+					"title" : "联系方式",
+					"data" : "maritalAgencyPhone",
+					"visible" : true,
+					"orderable" : false,
+				}, 
+				{
+					"title" : "简介",
+					"data" : "maritalAgencyDetail",
+					"visible" : true,
+					"orderable" : false,
+				}, 
+				{
+					"title" : "地址",
+					"data" : "areaName",
+					"visible" : true,
+					"orderable" : false,
+					"render" : function(data, type, full, meta) {
+						var areaStr = "";
+						if( full.provinceName != null ){
+							areaStr += full.provinceName;
+						} 
+						if( full.cityName != null ){
+							areaStr += full.cityName;
+						}
+						if( full.countyName != null ){
+							areaStr += full.countyName;
+						}
+						if( full.townName != null ){
+							areaStr += full.townName;
+						}
+						if( full.areaName != null ){
+							areaStr += full.areaName;
+						}
+						
+						return areaStr;
+					},
+				}, 
+				{
+					"title" : "备注",
+					"data" : "theNode",
+					"visible" : true,
+					"orderable" : false,
+				},
+				{
+					"title" : "",
+					"data" : "provinceID",
+					"visible" : false,
+					"orderable" : false,
+				},
+				{
+					"title" : "",
+					"data" : "provinceName",
+					"visible" : false,
+					"orderable" : false,
+				},
+				{
+					"title" : "",
+					"data" : "cityID",
+					"visible" : false,
+					"orderable" : false,
+				},
+				{
+					"title" : "",
+					"data" : "cityName",
+					"visible" : false,
+					"orderable" : false,
+				},
+				{
+					"title" : "",
+					"data" : "countyID",
+					"visible" : false,
+					"orderable" : false,
+				},
+				{
+					"title" : "",
+					"data" : "countyName",
+					"visible" : false,
+					"orderable" : false,
+				},
+				{
+					"title" : "",
+					"data" : "townID",
+					"visible" : false,
+					"orderable" : false,
+				},
+				{
+					"title" : "",
+					"data" : "townName",
+					"visible" : false,
+					"orderable" : false,
+				},
+				{
+					"title" : "",
+					"data" : "areaName",
+					"visible" : false,
+					"orderable" : false,
+				}
+			],
+		});
+
+		_that.singleSelectFun_agency();
+		_that.pageLengthChangeFun_agency();
+		_that.getTableRowData_agency();
+	},
+	
+	/**
+	 * 为表单绑定点击事件
+	 */
+	getTableRowData_agency	:	function(){
+		var _that = this;
+	    var table = $('#example_agency').DataTable();
+	    $('#example_agency tbody').on( 'click', 'tr', function () {
+	    	_that.common.tableRowDateObj_agency = table.row( this ).data();
+	    } );
+	},
+	
+	/**
+	 * 为表单复选框绑定单选
+	 */
+	singleSelectFun_agency	:	function(){
+		var _that = this;
+		var table = $('#example_agency').DataTable();
+		var lastSelectItem = -1;//-1表示未选中  
+		$('#example_agency tbody').on( 'click', 'tr', function () {
+			var index = table.row( this ).index();
+			if(lastSelectItem<0){//如果未选中
+				$("#example_agency input[name=selectID_agency]:eq("+index+")").prop("checked",true);
+				$(this).addClass("selected");
+				lastSelectItem = index;
+			}else{//如果选中
+				if(lastSelectItem==index){//如果选的是上一个
+			        $("#example_agency input[name=selectID_agency]:eq("+lastSelectItem+")").prop("checked",false);
+			        $("#example_agency tbody tr:eq("+lastSelectItem+")").removeClass("selected");
+			        lastSelectItem = -1;
+				}else{
+					$("#example_agency input[name=selectID_agency]:eq("+lastSelectItem+")").prop("checked",false);
+					 $("#example_agency tbody tr:eq("+lastSelectItem+")").removeClass("selected");
+					$("#example_agency input[name=selectID_agency]:eq("+index+")").prop("checked",true);
+					$(this).addClass("selected");
+					lastSelectItem = index;	
+				}
+			}
+	    } );
+	}, 
+
+	/**
+	 * 为系统类型表单绑定翻页事件
+	 */
+	pageLengthChangeFun_agency	:	function(){
+		var _that = this;
+		$('#example_agency').on( 'length.dt', function ( e, settings, len ) {
+			_that.reloadDatatables_agency();
+		} );
+	},
+	
+	/**
+	 * 重新加载系统类型表单
+	 */
+	reloadDatatables_agency	:	function(){
+		var _that = this;
+		var table = $('#example_agency').DataTable();
+		table.ajax.url(_that.common.maritalAgencyUrl + '/page').load();
+	},
+	
+	/**
+	 * 判断是否选中组织列表数据
+	 */
+	goCheck_agency	:	function(){
+		var ids = document.getElementsByName("selectID_agency");
+   		var count = 0;
+   		var id =0;
+   		for (var i=0;i<ids.length;i++ ){
+   			if(ids[i].checked){ //判断复选框是否选中
+   				count=count+1;
+   			}
+   		}
+   		if(count==0){
+   			layer.msg("请选择要操作的行！");
+   			return id;
+   		}else if(count>1){
+   			layer.msg("只能操作一行数据！");
+   			return id;
+   		}else if(count==1){
+   			for (var i=0;i<ids.length;i++ ){
+			    if(ids[i].checked){ 
+		           id=ids[i].value;
+			    }
+      		}
+   			return id;
+   		}
+	},
+	
+	/**
+	 * 重置检索框
+	 */
+	goReset_agency	:	function(){
+		var _that = this;
+		
+		var table = $('#example_agency').DataTable();
+		$("#maritalAgencyNameSerch").val("");
+		table.ajax.url( _that.common.maritalAgencyUrl+"/page").load();
+	},
+	
+	/**
+	 * 检索
+	 */
+	goSearch_agency	:	function(){
+		var _that = this;
+		
+		var table = $('#example_agency').DataTable();
+		var maritalAgencyName = $("#maritalAgencyNameSerch").val();
+		table.ajax.url( _that.common.maritalAgencyUrl+"/page?maritalAgencyName=" + maritalAgencyName ).load();
+	},
+//....婚介所表单..end......................................................//
 	
 }
