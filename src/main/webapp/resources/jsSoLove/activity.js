@@ -1,12 +1,12 @@
 var soLove = soLove || {};
 
 /**
- * 婚介所管理
+ * 活动管理
  * 
  * @author HeJiawang
- * @date 2016.12.30
+ * @date 2017.01.11
  */
-soLove.maritalAgency = {
+soLove.activity = {
 	
 	/**
 	 * 消息
@@ -19,7 +19,7 @@ soLove.maritalAgency = {
 		/**
 		 * url
 		 */
-		myurl	:	soLove.domainUrl.baseDomain + '/maritalAgency',
+		myurl	:	soLove.domainUrl.baseDomain + '/activity',
 		
 		/**
 		 * 系统类型列表选中项
@@ -29,61 +29,43 @@ soLove.maritalAgency = {
 		/**
 		 * 表单验证
 		 */
-		validate	:	$('#raiseMaritalAgency-form').validate({
+		validate	:	$('#raiseActivity-form').validate({
 			errorElement: 'div',
 			errorClass: 'help-block',
 			rules: {
-				maritalAgencyName:{
+				activityMoney:{
 					required: true,
 				},
-				maritalAgencyLogo:{
+				activityStartTime:{
 					required: true,
 				},
-				maritalAgencyPhone:{
+				activityEndTime:{
 					required: true,
 				},
-				maritalAgencyDetail:{
+				sort:{
 					required: true,
 				},
-				provinceID:{
+				activityContent:{
 					required: true,
-				},
-				cityID:{
-					required: true,
-				},
-				countyID:{
-					required: true,
-				},
-				townID:{
-					required: true,
-				},
+				}
 			},
 	
 			messages: {
-				maritalAgencyName:{
+				activityMoney:{
 					required: "必填",
 				},
-				maritalAgencyLogo:{
+				activityStartTime:{
 					required:  "必填",
 				},
-				maritalAgencyPhone:{
+				activityEndTime:{
 					required:  "必填",
 				},
-				maritalAgencyDetail:{
+				sort:{
 					required:  "必填",
 				},
-				provinceID:{
+				activityContent:{
 					required:  "必填",
-				},
-				cityID:{
-					required:  "必填",
-				},
-				countyID:{
-					required:  "必填",
-				},
-				townID:{
-					required:  "必填",
-				},
+				}
 			},
 	
 			invalidHandler: function (event, validator) {   
@@ -148,7 +130,7 @@ soLove.maritalAgency = {
 			},
 			"columns" : [
 				{
-					"data" : "maritalAgencyID",
+					"data" : "activityID",
 					"orderable" : false,
 					"visible" : true,
 					"width" : "5%",
@@ -157,115 +139,35 @@ soLove.maritalAgency = {
 					},
 				}, 
 				{
-					"title" : "婚介名称",
-					"data" : "maritalAgencyName",
+					"title" : "活动费用",
+					"data" : "activityMoney",
 					"visible" : true,
 					"orderable" : false,
 				}, 
 				{
-					"title" : "婚介log",
-					"data" : "maritalAgencyLogo",
+					"title" : "开始时间",
+					"data" : "activityStartTime",
 					"visible" : true,
 					"orderable" : false,
 				}, 
 				{
-					"title" : "联系方式",
-					"data" : "maritalAgencyPhone",
+					"title" : "结束时间",
+					"data" : "activityEndTime",
 					"visible" : true,
 					"orderable" : false,
 				}, 
 				{
-					"title" : "简介",
-					"data" : "maritalAgencyDetail",
+					"title" : "顺序",
+					"data" : "sort",
 					"visible" : true,
 					"orderable" : false,
 				}, 
 				{
-					"title" : "地址",
-					"data" : "areaName",
+					"title" : "活动内容",
+					"data" : "activityContent",
 					"visible" : true,
 					"orderable" : false,
-					"render" : function(data, type, full, meta) {
-						var areaStr = "";
-						if( full.provinceName != null ){
-							areaStr += full.provinceName;
-						} 
-						if( full.cityName != null ){
-							areaStr += full.cityName;
-						}
-						if( full.countyName != null ){
-							areaStr += full.countyName;
-						}
-						if( full.townName != null ){
-							areaStr += full.townName;
-						}
-						if( full.areaName != null ){
-							areaStr += full.areaName;
-						}
-						
-						return areaStr;
-					},
 				}, 
-				{
-					"title" : "备注",
-					"data" : "theNode",
-					"visible" : true,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "provinceID",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "provinceName",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "cityID",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "cityName",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "countyID",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "countyName",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "townID",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "townName",
-					"visible" : false,
-					"orderable" : false,
-				},
-				{
-					"title" : "",
-					"data" : "areaName",
-					"visible" : false,
-					"orderable" : false,
-				}
 			],
 		});
 
@@ -315,7 +217,7 @@ soLove.maritalAgency = {
 	}, 
 
 	/**
-	 * 为系统类型表单绑定翻页事件
+	 * 为表单绑定翻页事件
 	 */
 	pageLengthChangeFun	:	function(){
 		var _that = this;
@@ -368,7 +270,8 @@ soLove.maritalAgency = {
 		var _that = this;
 		
 		var table = $('#example').DataTable();
-		$("#maritalAgencyNameSerch").val("");
+		$("#activityStartTimeSerch").val("");
+		$("#activityEndTimeSerch").val("");
 		table.ajax.url( _that.common.myurl+"/page").load();
 	},
 	
@@ -379,44 +282,36 @@ soLove.maritalAgency = {
 		var _that = this;
 		
 		var table = $('#example').DataTable();
-		var maritalAgencyName = $("#maritalAgencyNameSerch").val();
-		table.ajax.url( _that.common.myurl+"/page?maritalAgencyName=" + maritalAgencyName ).load();
+		var activityStartTime = $("#activityStartTimeSerch").val();
+		var activityEndTime = $("#activityEndTimeSerch").val();
+		table.ajax.url( _that.common.myurl+"/page?activityStartTime=" + activityStartTime + "&activityEndTime=" + activityEndTime ).load();
 	},
 	
 	/**
-	 * 新增婚介所
+	 * 新增活动
 	 */
 	goRaise	:	function(){
 		var _that = this;
 		
-		$("#raiseMaritalAgency-form input").each(function(index){
+		$("#raiseActivity-form input").each(function(index){
             $(this).removeAttr("disabled" ,"" );
         });
-        $( "#raiseMaritalAgency-form textarea").each(function(index){
+        $( "#raiseActivity-form textarea").each(function(index){
             $(this).removeAttr("disabled" ,"" );
         });
-		$("#raiseMaritalAgency-form .help-block").css("display","none");
-	 	$("#raiseMaritalAgency-form .form-group").removeClass('has-error').addClass('has-info');
+		$("#raiseActivity-form .help-block").css("display","none");
+	 	$("#raiseActivity-form .form-group").removeClass('has-error').addClass('has-info');
 
-	 	$("#maritalAgencyID").val("");
-		$("#maritalAgencyName").val("");
-		$("#maritalAgencyLogo").val("");
-		$("#maritalAgencyPhone").val("");
-		$("#maritalAgencyDetail").val("");
-		$("#provinceID").val("");
-		$("#provinceName").val("");
-		$("#cityID").val("");
-		$("#cityName").val("");
-		$("#countyID").val("");
-		$("#countyName").val("");
-		$("#townID").val("");
-		$("#townName").val("");
-		$("#areaName").val("");
-		$("#theNode").val("");
+	 	$("#activityID").val("");
+		$("#activityMoney").val("");
+		$("#activityStartTime").val("");
+		$("#activityEndTime").val("");
+		$("#sort").val("");
+		$("#activityContent").val("");
 	 	
-		$("#raiseMaritalAgency-dialog" ).removeClass('hide').dialog({
+		$("#raiseActivity-dialog" ).removeClass('hide').dialog({
 		     modal: true,
-		     title: "新增婚介所",
+		     title: "新增活动",
 		     title_html: true,
 		     width:500,
 		     buttons: [ 
@@ -432,10 +327,10 @@ soLove.maritalAgency = {
 		     			"class" : "btn btn-primary btn-xs",
 		     			click: function() {
 		     				var dg = $( this );
-						 	if($("#raiseMaritalAgency-form").valid()){
+						 	if($("#raiseActivity-form").valid()){
 						 		$.ajax({
 									url :  _that.common.myurl + '/raise',
-									data : $("#raiseMaritalAgency-form").serialize(),
+									data : $("#raiseActivity-form").serialize(),
 									type: "post",
 									dataType : 'json',
 									success: function(result){
@@ -443,6 +338,7 @@ soLove.maritalAgency = {
 							            
 										if( result.success ){
 											_that.reloadDatatables();
+											$( this ).dialog( "close" ); 
 										}
 									}
 								});
@@ -454,42 +350,33 @@ soLove.maritalAgency = {
 	},
 	
 	/**
-	 * 修改婚介所信息
+	 * 修改活动信息
 	 */
 	goModify	:	function(){
 		var _that = this;
 		
-		$("#raiseMaritalAgency-form .help-block").css("display","none");
-	 	$("#raiseMaritalAgency-form .form-group").removeClass('has-error').addClass('has-info');
+		$("#raiseActivity-form .help-block").css("display","none");
+	 	$("#raiseActivity-form .form-group").removeClass('has-error').addClass('has-info');
         
-        $("#raiseMaritalAgency-form input").each(function(index){
+        $("#raiseActivity-form input").each(function(index){
             $(this).removeAttr("disabled" ,"" );
         });
-        $( "#raiseMaritalAgency-form textarea").each(function(index){
+        $( "#raiseActivity-form textarea").each(function(index){
             $(this).removeAttr("disabled" ,"" );
         });
         
 		var count = _that.goCheck();
 		if(count>0){
-			$("#maritalAgencyID").val(_that.common.tableRowDateObj.maritalAgencyID);
-			$("#maritalAgencyName").val(_that.common.tableRowDateObj.maritalAgencyName);
-			$("#maritalAgencyLogo").val(_that.common.tableRowDateObj.maritalAgencyLogo);
-			$("#maritalAgencyPhone").val(_that.common.tableRowDateObj.maritalAgencyPhone);
-			$("#maritalAgencyDetail").val(_that.common.tableRowDateObj.maritalAgencyDetail);
-			$("#provinceID").val(_that.common.tableRowDateObj.provinceID);
-			$("#provinceName").val(_that.common.tableRowDateObj.provinceName);
-			$("#cityID").val(_that.common.tableRowDateObj.cityID);
-			$("#cityName").val(_that.common.tableRowDateObj.cityName);
-			$("#countyID").val(_that.common.tableRowDateObj.countyID);
-			$("#countyName").val(_that.common.tableRowDateObj.countyName);
-			$("#townID").val(_that.common.tableRowDateObj.townID);
-			$("#townName").val(_that.common.tableRowDateObj.townName);
-			$("#areaName").val(_that.common.tableRowDateObj.areaName);
-			$("#theNode").val(_that.common.tableRowDateObj.theNode);
-	 		
-			$("#raiseMaritalAgency-dialog" ).removeClass('hide').dialog({
+			$("#activityID").val(_that.common.tableRowDateObj.activityID);
+			$("#activityMoney").val(_that.common.tableRowDateObj.activityMoney);
+			$("#activityStartTime").val(_that.common.tableRowDateObj.activityStartTime);
+			$("#activityEndTime").val(_that.common.tableRowDateObj.activityEndTime);
+			$("#sort").val(_that.common.tableRowDateObj.sort);
+			$("#activityContent").val(_that.common.tableRowDateObj.activityContent);
+
+			$("#raiseActivity-dialog" ).removeClass('hide').dialog({
 			     modal: true,
-			     title: "修改婚介所信息",
+			     title: "修改活动信息",
 			     title_html: true,
 			     width:500,
 			     buttons: [ 
@@ -506,10 +393,10 @@ soLove.maritalAgency = {
 			     			click: function() {
 			     				var dg = $( this );
 			     				
-							 	if($("#raiseMaritalAgency-form").valid()){
+							 	if($("#raiseActivity-form").valid()){
 							 		$.ajax({
 										url :  _that.common.myurl + '/modify',
-										data : $("#raiseMaritalAgency-form").serialize(),
+										data : $("#raiseActivity-form").serialize(),
 										type: "post",
 										dataType : 'json',
 										success: function(result){
@@ -517,6 +404,7 @@ soLove.maritalAgency = {
 								            
 											if( result.success ){
 												_that.reloadDatatables();
+												$( this ).dialog( "close" ); 
 											}
 										}
 									});
@@ -532,35 +420,26 @@ soLove.maritalAgency = {
 	 * 婚介所信息查看
 	 */
 	goView	:	function(){
-		$("#raiseMaritalAgency-form .help-block").css("display","none");
-	 	$("#raiseMaritalAgency-form .form-group").removeClass('has-error').addClass('has-info');
-        $("#raiseMaritalAgency-form input").each(function(index){
+		$("#raiseActivity-form .help-block").css("display","none");
+	 	$("#raiseActivity-form .form-group").removeClass('has-error').addClass('has-info');
+        $("#raiseActivity-form input").each(function(index){
             $(this).attr("disabled" ,"disabled" );
         });
-        $( "#raiseMaritalAgency-form textarea").each(function(index){
+        $( "#raiseActivity-form textarea").each(function(index){
             $(this).attr("disabled" ,"disabled" );
         }); 
 		var count = _that.goCheck();
 		if(count>0){
-			$("#maritalAgencyID").val(_that.common.tableRowDateObj.maritalAgencyID);
-			$("#maritalAgencyName").val(_that.common.tableRowDateObj.maritalAgencyName);
-			$("#maritalAgencyLogo").val(_that.common.tableRowDateObj.maritalAgencyLogo);
-			$("#maritalAgencyPhone").val(_that.common.tableRowDateObj.maritalAgencyPhone);
-			$("#maritalAgencyDetail").val(_that.common.tableRowDateObj.maritalAgencyDetail);
-			$("#provinceID").val(_that.common.tableRowDateObj.provinceID);
-			$("#provinceName").val(_that.common.tableRowDateObj.provinceName);
-			$("#cityID").val(_that.common.tableRowDateObj.cityID);
-			$("#cityName").val(_that.common.tableRowDateObj.cityName);
-			$("#countyID").val(_that.common.tableRowDateObj.countyID);
-			$("#countyName").val(_that.common.tableRowDateObj.countyName);
-			$("#townID").val(_that.common.tableRowDateObj.townID);
-			$("#townName").val(_that.common.tableRowDateObj.townName);
-			$("#areaName").val(_that.common.tableRowDateObj.areaName);
-			$("#theNode").val(_that.common.tableRowDateObj.theNode);
+			$("#activityID").val(_that.common.tableRowDateObj.activityID);
+			$("#activityMoney").val(_that.common.tableRowDateObj.activityMoney);
+			$("#activityStartTime").val(_that.common.tableRowDateObj.activityStartTime);
+			$("#activityEndTime").val(_that.common.tableRowDateObj.activityEndTime);
+			$("#sort").val(_that.common.tableRowDateObj.sort);
+			$("#activityContent").val(_that.common.tableRowDateObj.activityContent);
 	 		
-	 		$("#raiseMaritalAgency-dialog" ).removeClass('hide').dialog({
+	 		$("#raiseActivity-dialog" ).removeClass('hide').dialog({
 			     modal: true,
-			     title: "查看婚介所信息",
+			     title: "查看活动信息",
 			     title_html: true,
 			     width:500,
 			     buttons: [ 
@@ -577,12 +456,12 @@ soLove.maritalAgency = {
 	},
 	
 	/**
-	 * 删除婚介所信息
+	 * 删除活动信息
 	 */
 	goEarse	:	function(){
 		var _that = this;
-		var maritalAgencyID = _that.goCheck();
-		if( maritalAgencyID != 0 ){
+		var ActivityID = _that.goCheck();
+		if( ActivityID != 0 ){
 			var goEraseUrl = _that.common.myurl + '/erase';
 			
 			layer.confirm('确认删除！', {
@@ -591,7 +470,7 @@ soLove.maritalAgency = {
 			}, function(){
 				$.ajax({
 					url : goEraseUrl,
-					data : {'maritalAgencyID':maritalAgencyID},
+					data : {'ActivityID':ActivityID},
 					type: "get",
 					dataType : 'json',
 					success:function(result) {
