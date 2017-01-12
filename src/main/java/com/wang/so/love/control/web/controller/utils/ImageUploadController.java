@@ -46,11 +46,17 @@ public class ImageUploadController {
 	 * @param response response
 	 * @return ServiceResult
 	 */
-	@RequestMapping(value="/image",method=RequestMethod.GET)
+	@RequestMapping(value="/image",method=RequestMethod.POST)
 	@ResponseBody
-	public ServiceResult<Void> uploadImage( @RequestParam CommonsMultipartFile file, String fileDir,
+	public ServiceResult<String> uploadImage( @RequestParam CommonsMultipartFile file, String fileDir,
 			HttpSession session, HttpServletRequest request, HttpServletResponse response){
-		ServiceResult<Void> result = new ServiceResult<Void>();
+		ServiceResult<String> result = new ServiceResult<String>();
+		
+		if( file == null ){	//必须选择照片
+			result.setSuccess(false);
+        	result.setMessage("请选择图片!!!");
+        	return result;
+		}
 		
 		if( file.getSize() > 1048576 ){	//选择文件大小不能超过1M
 			result.setSuccess(false);
@@ -89,6 +95,7 @@ public class ImageUploadController {
 			
 			result.setSuccess(true);
 			result.setMessage("上传成功");
+			result.setResult(newFileName);
 		} catch (IOException e) {
 			logger.error("异常发生在"+this.getClass().getName()+"类的uploadImage方法，异常原因是："+e.getMessage(), e.fillInStackTrace());
 		}

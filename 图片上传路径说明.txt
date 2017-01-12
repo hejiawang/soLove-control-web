@@ -1,0 +1,9 @@
+用户头像:			fileUpload/userHeadImage
+
+用户照片:			fileUpload/userInfoImg
+
+兴趣爱好图标:		fileUpload/hobbyIcon
+
+婚介所logo:		fileUpload/maritalAgencyLogo
+
+婚介老师头像:		fileUpload/maritalEmployImage
